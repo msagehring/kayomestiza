@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { MarqueeBanner } from "@/components/MarqueeBanner";
+import { DropCountdown } from "@/components/DropCountdown";
 import { FanFavorites } from "@/components/FanFavorites";
 import { MenuSection } from "@/components/MenuSection";
 import { ScheduleSection } from "@/components/ScheduleSection";
@@ -26,6 +27,7 @@ export default function Home() {
       <main>
         <Hero />
         <MarqueeBanner />
+        <DropCountdown />
         <FanFavorites />
         <MenuSection />
         <ScheduleSection />

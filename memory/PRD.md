@@ -29,6 +29,12 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Catering form (3 package tiers) + contact form + newsletter — all saved to MongoDB
 - Numbered manifesto (3 chapters), Instagram-style masonry gallery, brutalist footer
 - /admin: JWT login, schedule editor (add/edit/remove/publish), inquiry inbox
+- Graffiti wordmark hero (concept logo isolated to transparent /wordmark.png)
+- Crown favicon + apple-touch-icon cropped from the logo crown
+- Drop 001 primetime countdown section (live timer to Saturday noon, classified mystery item, drop-alert CTAs)
+
+## In Progress
+- Gemini AI (user's own Google AI Studio key, pending): AI Menu Concierge chat, admin Specials Image Generator (Nano Banana), admin Copywriter. Playbook ready: `google-genai` SDK, `client.aio.models.generate_content`, models via GEMINI_TEXT_MODEL / GEMINI_IMAGE_MODEL env. WAITING ON: GEMINI_API_KEY from user → goes in backend/.env.
 
 ## Backlog
 - P1: Real phone number + real Instagram/Facebook/TikTok handles (currently placeholders)

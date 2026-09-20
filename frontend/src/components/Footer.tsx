@@ -59,7 +59,8 @@ export const Footer = () => {
             <h3 className="font-mono2 text-xs uppercase tracking-[0.25em] text-gold">Secret Menu Drops</h3>
             <p className="mt-4 text-sm text-slate-400">Weekend specials and sticker drops, straight to your inbox.</p>
             <form
-              className="mt-4 flex gap-2"
+              id="newsletter"
+              className="mt-4 flex gap-2 scroll-mt-24"
               data-testid="newsletter-form"
               onSubmit={(e) => {
                 e.preventDefault();
