@@ -1,0 +1,313 @@
+{
+  "brand": {
+    "name": "KAYO MESTIZA",
+    "tagline": "Blasian Fire & Street Eats",
+    "description": "Where 90s streetwear drop culture collides with high-octane Filipino-American street eats. Charcoal-grilled skewers, smash griddle bangers, crisp lumpia, and sweet bakes fueled by Filipino heritage.",
+    "aesthetic_keywords": [
+      "90s streetwear",
+      "graffiti-display",
+      "sticker-bomb",
+      "Filipino flag heritage",
+      "flame & griddle",
+      "tactile brutalist layers",
+      "Awwwards Site-of-the-Day polish"
+    ]
+  },
+  "colors": {
+    "palette_name": "Kayo Mestiza Heritage Fire",
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#0B0C10",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#CBD5E1",
+        "roles": {
+          "link": "#FBBF24",
+          "error": "#EF4444",
+          "success": "#10B981",
+          "badge_text": "#FDE047"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#141721",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "link": "#F59E0B",
+          "error": "#F87171",
+          "success": "#34D399"
+        }
+      },
+      {
+        "name": "panel_elevated",
+        "kind": "solid",
+        "bg": "#1E2230",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#CBD5E1",
+        "roles": {
+          "link": "#FBBF24",
+          "accent_highlight": "#FF4500"
+        }
+      },
+      {
+        "name": "hero",
+        "kind": "image",
+        "contrast_against": "#08090D",
+        "guarantee": "scrim: linear-gradient(180deg, rgba(11, 12, 16, 0.88) 0%, rgba(11, 12, 16, 0.7) 45%, rgba(11, 12, 16, 0.96) 100%), radial-gradient(circle at 50% 30%, rgba(255, 69, 0, 0.18) 0%, transparent 70%)",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#E2E8F0",
+        "roles": {
+          "link": "#FFD700",
+          "error": "#FF6B6B",
+          "success": "#4ADE80"
+        }
+      },
+      {
+        "name": "sticker_yellow",
+        "kind": "solid",
+        "bg": "#FFD700",
+        "on_bg": "#000000",
+        "on_bg_muted": "#1F2937",
+        "roles": {
+          "link": "#991B1B"
+        }
+      },
+      {
+        "name": "sticker_red",
+        "kind": "solid",
+        "bg": "#CE1126",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#FEE2E2",
+        "roles": {
+          "link": "#FDE047"
+        }
+      },
+      {
+        "name": "sticker_blue",
+        "kind": "solid",
+        "bg": "#0038A8",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#DBEAFE",
+        "roles": {
+          "link": "#FDE047"
+        }
+      },
+      {
+        "name": "glass_nav",
+        "kind": "glass",
+        "contrast_against": "#0B0C10",
+        "guarantee": "backdrop-blur-xl bg-[#0B0C10]/85 border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#CBD5E1",
+        "roles": {
+          "link": "#FBBF24",
+          "active_indicator": "#FF4500"
+        }
+      },
+      {
+        "name": "inverse",
+        "kind": "solid",
+        "bg": "#F8FAFC",
+        "on_bg": "#0B0C10",
+        "on_bg_muted": "#475569",
+        "roles": {
+          "link": "#CE1126",
+          "error": "#DC2626",
+          "success": "#16A34A"
+        }
+      }
+    ],
+    "brand_tokens": {
+      "deep_blue": "#0038A8",
+      "scarlet_red": "#CE1126",
+      "golden_yellow": "#FFD700",
+      "fiery_orange": "#FF4500",
+      "charcoal_black": "#0B0C10",
+      "street_gray": "#141721",
+      "crisp_white": "#FFFFFF",
+      "flame_gradient": "linear-gradient(135deg, #FF4500 0%, #FFD700 100%)",
+      "filipino_trio_gradient": "linear-gradient(90deg, #0038A8 0%, #CE1126 50%, #FFD700 100%)"
+    },
+    "accent": "#FF4500",
+    "on_accent": "#FFFFFF"
+  },
+  "typography": {
+    "heading_font": "Space Grotesk Variable, sans-serif",
+    "body_font": "DM Sans Variable, sans-serif",
+    "accent_display_font": "Outfit Variable, sans-serif",
+    "mono_font": "Geist Mono Variable, monospace",
+    "scale_px": {
+      "display": 60,
+      "h1": 48,
+      "h2": 36,
+      "h3": 24,
+      "body": 16,
+      "caption": 14
+    },
+    "rules": [
+      "Hero display heading: text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-none with multi-color graffiti drop-shadow",
+      "Section headlines (H2): text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight",
+      "Subheaders (H3): text-xl sm:text-2xl font-bold tracking-normal",
+      "Body text: text-base (sm:text-sm on mobile compact items), leading-relaxed, max tracking 0.02em",
+      "Overlines / Chapter stamps: Geist Mono uppercase text-xs sm:text-sm tracking-[0.25em] text-[#FFD700]"
+    ]
+  },
+  "entry_surfaces": {
+    "/": "split kinetic hero — bold masked graffiti reveal + badge cluster left, interactive 3D spotlight food showcase & quick-action cards right"
+  },
+  "visual_enhancers": {
+    "stickers_and_badges": "Angled sticker tags (-3deg to 4deg rotate) with 2px solid crisp borders, drop shadow [3px_3px_0px_#000], bold uppercase copy",
+    "clipped_frames": "Food photography encased in industrial clipped-corner frames (polygon clip-path or heavy 2px inset borders with yellow corner brackets)",
+    "sun_motif": "Filipino 8-ray golden sun motif (custom SVG icon) used as divider, watermark, and chapter accent",
+    "flame_accents": "Subtle animated glowing flame particles on griddle showcase and hero backdrop",
+    "halftone_and_grain": "CSS SVG grain texture overlay with mix-blend-mode: overlay for authentic 90s streetwear zine feel"
+  },
+  "motion": {
+    "engine": "motion (framer-motion) with Lenis smooth momentum scrolling",
+    "hero_intro": {
+      "masked_reveal": "staggerChildren: 0.12s, clipPath: polygon(0 0, 100% 0, 100% 100%, 0% 100%) transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }",
+      "badge_pop": "scale: [0.8, 1.08, 1], rotate: [-8, 4, -2], duration: 0.6s"
+    },
+    "marquee": {
+      "speed": "28s infinite linear scroll with pause-on-hover, bold typography separator",
+      "content": "BLASIAN FIRE ★ FRESH LUMPIA ON DECK ★ TOCINO SMASH BURGERS ★ BABOY SKEWERS SIZZLING ★ STREETWEAR DROPS ★ BOOK CATERING NOW"
+    },
+    "cards_interaction": {
+      "hover": "translate-y-[-4px] scale-[1.01] shadow-[0_12px_24px_rgba(255,69,0,0.2)] border-amber-400 transition: transform 0.2s ease, border-color 0.2s ease",
+      "tap": "scale-[0.98]"
+    },
+    "scroll_reveal": {
+      "initial": { "opacity": 0, "y": 28 },
+      "whileInView": { "opacity": 1, "y": 0 },
+      "viewport": { "once": true, "margin": "-80px" },
+      "transition": { "duration": 0.6, "ease": [0.22, 1, 0.36, 1] }
+    }
+  },
+  "accessibility": {
+    "contrast_standard": "All text and interactive glyphs meet minimum WCAG AA 4.5:1 against respective surfaces",
+    "reduced_motion": "Wrap animations with prefers-reduced-motion queries or disable heavy transforms when requested",
+    "focus_states": "focus-visible:ring-2 focus-visible:ring-[#FFD700] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0C10] outline-none",
+    "screen_readers": "All decorative stickers and SVGs have aria-hidden='true', interactive modals and cart drawers follow base-ui aria guidelines"
+  },
+  "image_urls": {
+    "hero_food_truck": {
+      "url": "https://images.unsplash.com/photo-1672767775752-b457456f8980?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwzfHxmb29kJTIwdHJ1Y2slMjBuaWdodCUyMG1hcmtldCUyMGNyb3dkfGVufDB8fHx8MTc4OTkwNjI0Mnww&ixlib=rb-4.1.0&q=85",
+      "category": "hero_backdrop",
+      "description": "Kayo Mestiza food truck glowing in the night street market ambiance"
+    },
+    "fan_favorite_skewers": {
+      "url": "https://images.pexels.com/photos/37091271/pexels-photo-37091271.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "category": "menu_skewers",
+      "description": "Authentic grilled Baboy Kabob skewers sizzling over glowing charcoal with basting glaze"
+    },
+    "fan_favorite_lumpia": {
+      "url": "https://images.pexels.com/photos/5718880/pexels-photo-5718880.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "category": "menu_lumpia",
+      "description": "Golden crispy hand-rolled Traditional Lumpia and Turon Magic with sweet chili dipping sauce"
+    },
+    "fan_favorite_smash_burger": {
+      "url": "https://images.unsplash.com/photo-1688246780164-00c01647e78c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxnb3VybWV0JTIwYnVyZ2VyJTIwc21hc2glMjBzdHJlZXQlMjBmb29kfGVufDB8fHx8MTc4OTkwNjI0MXww&ixlib=rb-4.1.0&q=85",
+      "category": "menu_smash",
+      "description": "Gourmet double PB&J and Tocino Smash Burger with melted cheese crisp and charred edges"
+    },
+    "griddle_sizzle_action": {
+      "url": "https://images.unsplash.com/photo-1660299919808-ed071585b7c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHw0fHxnb3VybWV0JTIwYnVyZ2VyJTIwc21hc2glMjBzdHJlZXQlMjBmb29kfGVufDB8fHx8MTc4OTkwNjI0Mnww&ixlib=rb-4.1.0&q=85",
+      "category": "menu_action",
+      "description": "Sizzling Longaniza Melt and griddle patties on the flat top"
+    },
+    "street_vibe_market": {
+      "url": "https://images.unsplash.com/photo-1535898331935-2d274aff0fbc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwyfHxmb29kJTIwdHJ1Y2slMjBuaWdodCUyMG1hcmtldCUyMGNyb3dkfGVufDB8fHx8MTc4OTkwNjI0Mnww&ixlib=rb-4.1.0&q=85",
+      "category": "community_gallery",
+      "description": "Energetic night crowd hanging out, eating street food and celebrating community"
+    },
+    "cheeseburger_neon": {
+      "url": "https://images.pexels.com/photos/36741809/pexels-photo-36741809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "category": "gallery_urban",
+      "description": "Handheld street food against neon glow reflecting 90s urban vibe"
+    }
+  },
+  "sections_blueprint": [
+    {
+      "id": "nav",
+      "name": "Floating Glass & Streetwear Header",
+      "description": "Fixed header with Kayo Mestiza sun logo mark, desktop links (Menu, Truck Schedule, Order, Catering, About, Gallery, Contact), action badge 'ORDER NOW', and mobile hamburger drawer. Includes live truck status pill ('TRUCK LIVE: Mission Bay 5-10PM')."
+    },
+    {
+      "id": "hero",
+      "name": "Kinetic Masked-Reveal Hero",
+      "description": "Explosive entrance: 90s graffiti title 'KAYO MESTIZA' with line-by-line masked reveal, tagline 'BLASIAN FIRE & STREET EATS', flame badge, Filipino 8-ray sun watermark, direct CTAs: [VIEW MENU], [FIND THE TRUCK], [ORDER NOW]. Floating interactive dish cards with spice meter and glowing flame accents."
+    },
+    {
+      "id": "marquee_banner",
+      "name": "Kinetic Streetwear Ribbon",
+      "description": "Slow high-energy scrolling marquee with 90s sticker typography, stars, and food truck callouts separating hero and favorites."
+    },
+    {
+      "id": "fan_favorites",
+      "name": "Heavy-Hitter Fan Favorites (Spotlight Grid)",
+      "description": "Asymmetric Bento showcase of top 5 must-order items: Traditional Lumpia (Crisp & Classic), PB&J Smash Burger (Sweet-Savory Char), Longaniza Melt (Griddle King), Turon Magic (Caramelized Banana Crisp), and Hummingbird Cassava Cake (Sweet Bakes). Each card features a quick-order button, custom badge, and heat level."
+    },
+    {
+      "id": "full_menu",
+      "name": "Interactive Street Menu with Category Tabs",
+      "description": "Tabbed categorical menu: 1. Skewers & Tacos (Baboy Kabob, Chicken Adobo Tacos), 2. From the Griddle (PB&J Smash Burger, Tocino Smash, Longaniza Melt, Oh Manok Asul Quesadilla), 3. The Lumpia Lineup (Traditional Lumpia, Cheesesteak Lumpia, Southeast Eggrolls, Turon Magic, Sweet Mango Cream Cheese Lumpia), 4. Sweet Bakes (Hummingbird Cassava Cake, Carrot Cheesecake). Includes item customizations, allergen tags, and instant add-to-order."
+    },
+    {
+      "id": "truck_schedule",
+      "name": "Live Truck Schedule & Radar Map",
+      "description": "Interactive schedule cards with day/time badges (Monday to Sunday), location addresses, Google Maps directions link, live 'TODAY' highlight card, and embedded interactive map selector with custom neon map pins."
+    },
+    {
+      "id": "online_ordering_drawer",
+      "name": "Quick Order & Sticky Mobile Order Bar",
+      "description": "Persistent mobile floating bar with item count, total price, and 'ORDER NOW' button. Slide-out cart drawer for takeout pickup scheduling, truck location selection, and instant checkout preview."
+    },
+    {
+      "id": "about_manifesto",
+      "name": "Numbered Manifesto Chapters (The Story)",
+      "description": "Editorial split-scroll manifesto: Chapter 01: The Blasian Heritage (Merging Black & Filipino street flavours), Chapter 02: Fire & Flat-Top (Charcoal smoke meets griddle smash technique), Chapter 03: The Drop Culture (Limited weekend specials and streetwear energy)."
+    },
+    {
+      "id": "catering_inquiry",
+      "name": "High-Impact Catering & Event Booking Form",
+      "description": "Interactive catering calculator (guest count, package tiers: 'Street Block Party', 'Griddle Master VIP', 'Lumpia Tower Craze'), date picker, contact input, and custom dietary requests."
+    },
+    {
+      "id": "instagram_gallery",
+      "name": "Street Community Gallery & Drop Feed",
+      "description": "Instagram-style masonry grid showcasing fans, sizzling grill moments, stickers on skate decks, and truck crowds with @KayoMestiza handle and follow CTA."
+    },
+    {
+      "id": "contact_footer",
+      "name": "Heavy Brutalist Street Footer",
+      "description": "Massive 10vw outline brand text, newsletter signup for secret menu drops, direct phone/email, operating hours, social links, Filipino flag credit watermark, and copyright."
+    }
+  ],
+  "component_paths": {
+    "header": "/app/frontend/src/components/Header.tsx",
+    "hero": "/app/frontend/src/components/Hero.tsx",
+    "marquee": "/app/frontend/src/components/MarqueeBanner.tsx",
+    "fan_favorites": "/app/frontend/src/components/FanFavorites.tsx",
+    "menu_section": "/app/frontend/src/components/MenuSection.tsx",
+    "schedule_map": "/app/frontend/src/components/ScheduleMap.tsx",
+    "order_cart_drawer": "/app/frontend/src/components/OrderCartDrawer.tsx",
+    "manifesto": "/app/frontend/src/components/AboutManifesto.tsx",
+    "catering_form": "/app/frontend/src/components/CateringForm.tsx",
+    "gallery": "/app/frontend/src/components/GallerySection.tsx",
+    "footer": "/app/frontend/src/components/Footer.tsx",
+    "sticky_bar": "/app/frontend/src/components/StickyMobileBar.tsx",
+    "sun_icon": "/app/frontend/src/components/FilipinoSunIcon.tsx"
+  },
+  "instructions_to_main_agent": [
+    "1. Mount fonts in frontend/src/index.css: Use @fontsource-variable/space-grotesk for headers and @fontsource-variable/dm-sans for body text.",
+    "2. Maintain strict mobile-first responsiveness. The sticky order bar at the bottom must be prominent on mobile devices and tablet screens.",
+    "3. Implement an interactive cart/order drawer with simulated state (add items from menu, adjust quantity, choose pickup location, and simulate checkout with Sonner toast feedback).",
+    "4. Ensure all interactive buttons, tabs, inputs, and links include distinct data-testid attributes (e.g. data-testid='hero-view-menu-btn', data-testid='menu-tab-lumpia', data-testid='catering-submit-btn').",
+    "5. Use framer-motion (motion/react) for smooth stagger reveals, sticker hover pops, and Lenis for silky smooth scrolling.",
+    "6. Do not use generic white or light backgrounds for main cards; use rich deep charcoal #141721 with high-contrast sticker badges (#FFD700, #CE1126, #0038A8, #FF4500).",
+    "7. Include all required menu items with authentic descriptions, prices, spice indicators, and dietary badges."
+  ]
+}
