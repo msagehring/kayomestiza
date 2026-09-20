@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Flame, Menu as MenuIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
-import { PHONE_TEL } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -17,6 +17,7 @@ export const NAV_LINKS = [
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const contact = useContact();
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-coal/85 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]" data-testid="site-header">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
@@ -38,7 +39,7 @@ export const Header = () => {
             </a>
           ))}
           <a
-            href={PHONE_TEL}
+            href={contact.tel}
             data-testid="nav-order-now-btn"
             className="sticker rotate-[-2deg] bg-scarlet px-4 py-2 text-xs text-white transition-transform hover:rotate-0 hover:scale-105"
           >

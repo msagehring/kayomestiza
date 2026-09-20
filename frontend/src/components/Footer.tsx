@@ -6,9 +6,10 @@ import { apiPost } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
 import { NAV_LINKS } from "@/components/Header";
-import { EMAIL, INSTAGRAM, PHONE_DISPLAY, PHONE_TEL } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 export const Footer = () => {
+  const contact = useContact();
   const [email, setEmail] = useState("");
   const mutation = useMutation({
     mutationFn: () => apiPost("/inquiries", { type: "newsletter", name: "Newsletter", email, message: "Newsletter signup for secret menu drops" }),
@@ -33,7 +34,7 @@ export const Footer = () => {
             </div>
             <p className="mt-3 text-sm text-slate-400">Blasian fire &amp; street eats. Rolled, smashed, and charred in the Bay.</p>
             <div className="mt-4 flex gap-3">
-              <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="footer-social-instagram" className="text-slate-400 hover:text-gold"><SiInstagram className="h-5 w-5" /></a>
+              <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="footer-social-instagram" className="text-slate-400 hover:text-gold"><SiInstagram className="h-5 w-5" /></a>
               <a href="https://facebook.com/kayomestiza" target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="footer-social-facebook" className="text-slate-400 hover:text-gold"><SiFacebook className="h-5 w-5" /></a>
               <a href="https://tiktok.com/@kayomestiza" target="_blank" rel="noreferrer" aria-label="TikTok" data-testid="footer-social-tiktok" className="text-slate-400 hover:text-gold"><SiTiktok className="h-5 w-5" /></a>
             </div>
@@ -50,9 +51,9 @@ export const Footer = () => {
               ))}
             </ul>
             <p className="mt-6 font-mono2 text-xs uppercase tracking-wider text-slate-500">
-              <a href={PHONE_TEL} className="hover:text-gold" data-testid="footer-phone-link">{PHONE_DISPLAY}</a>
+              <a href={contact.tel} className="hover:text-gold" data-testid="footer-phone-link">{contact.phone_display}</a>
               <br />
-              <a href={`mailto:${EMAIL}`} className="hover:text-gold" data-testid="footer-email-link">{EMAIL}</a>
+              <a href={contact.mailto} className="hover:text-gold" data-testid="footer-email-link">{contact.email}</a>
             </p>
           </div>
           <div>

@@ -7,7 +7,9 @@ import { apiGet, apiPost, apiPut, ApiError } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
+import type { SiteSettings } from "@/hooks/useSettings";
 
 interface AdminUser {
   id: string;
@@ -41,6 +43,16 @@ interface Inquiry {
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+// datetime-local <-> ISO helpers. The input works in the admin's local timezone; we store UTC ISO.
+const isoToLocalInput = (iso: string | null) => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 16);
+};
+const localInputToIso = (val: string) => (val ? new Date(val).toISOString() : null);
+
 export default function Admin() {
   const qc = useQueryClient();
   const me = useQuery({ queryKey: ["me"], queryFn: () => apiGet<AdminUser>("/auth/me"), retry: false });
@@ -57,11 +69,31 @@ export default function Admin() {
     queryFn: () => apiGet<Inquiry[]>("/inquiries"),
     enabled: !!me.data,
   });
+  const settingsQuery = useQuery({
+    queryKey: ["admin-settings"],
+    queryFn: () => apiGet<SiteSettings>("/settings"),
+    enabled: !!me.data,
+  });
 
   const [entries, setEntries] = useState<EditableEntry[]>([]);
   useEffect(() => {
     if (schedule.data) setEntries(schedule.data.entries.map(({ id: _id, ...e }) => e));
   }, [schedule.data]);
+
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  useEffect(() => {
+    if (settingsQuery.data) setSettings(settingsQuery.data);
+  }, [settingsQuery.data]);
+
+  const saveSettings = useMutation({
+    mutationFn: () => apiPut<SiteSettings>("/settings", settings),
+    onSuccess: () => {
+      toast.success("Settings saved — live on the site.");
+      qc.invalidateQueries({ queryKey: ["admin-settings"] });
+      qc.invalidateQueries({ queryKey: ["settings"] });
+    },
+    onError: () => toast.error("Save failed. Try again."),
+  });
 
   const save = useMutation({
     mutationFn: () => apiPut<ScheduleResponse>("/schedule", { entries }),
@@ -146,6 +178,129 @@ export default function Admin() {
             </button>
           </div>
         </div>
+
+        {settings && (
+          <section className="mt-8 border-2 border-gold/40 bg-panel p-5 sm:p-6" data-testid="admin-settings-editor">
+            <h2 className="font-heading text-lg font-bold uppercase text-gold">Launch Drop &amp; Contact</h2>
+
+            <div className="mt-5">
+              <div className="flex items-center justify-between">
+                <span className="font-mono2 text-xs uppercase tracking-widest text-slate-300">Drop Countdown</span>
+                <label className="flex items-center gap-2 font-mono2 text-xs uppercase text-slate-300">
+                  <input
+                    type="checkbox"
+                    checked={settings.drop.enabled}
+                    data-testid="settings-drop-enabled"
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, enabled: e.target.checked } })}
+                  />
+                  Show on site
+                </label>
+              </div>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Drop date &amp; time</Label>
+                  <Input
+                    type="datetime-local"
+                    data-testid="settings-drop-at"
+                    value={isoToLocalInput(settings.drop.drop_at)}
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, drop_at: localInputToIso(e.target.value) } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                  <p className="mt-1 font-mono2 text-[10px] uppercase text-slate-500">Leave blank for auto next-Saturday-noon</p>
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Item name</Label>
+                  <Input
+                    data-testid="settings-drop-item"
+                    value={settings.drop.item_name}
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, item_name: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Overline</Label>
+                  <Input
+                    data-testid="settings-drop-overline"
+                    value={settings.drop.overline}
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, overline: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Location note</Label>
+                  <Input
+                    data-testid="settings-drop-location"
+                    value={settings.drop.location_note}
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, location_note: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Subtitle</Label>
+                  <Textarea
+                    data-testid="settings-drop-subtitle"
+                    rows={2}
+                    value={settings.drop.subtitle}
+                    onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, subtitle: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <span className="font-mono2 text-xs uppercase tracking-widest text-slate-300">Contact Details</span>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Phone (display)</Label>
+                  <Input
+                    data-testid="settings-phone-display"
+                    value={settings.contact.phone_display}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, phone_display: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Phone (dial, +1…)</Label>
+                  <Input
+                    data-testid="settings-phone-number"
+                    value={settings.contact.phone_number}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, phone_number: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Email</Label>
+                  <Input
+                    type="email"
+                    data-testid="settings-email"
+                    value={settings.contact.email}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, email: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Instagram URL</Label>
+                  <Input
+                    data-testid="settings-instagram"
+                    value={settings.contact.instagram}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, instagram: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Button
+              onClick={() => saveSettings.mutate()}
+              disabled={saveSettings.isPending}
+              data-testid="settings-save-btn"
+              className="sticker mt-6 h-auto bg-gold px-6 py-2 font-heading text-xs text-black hover:bg-flame hover:text-white"
+            >
+              {saveSettings.isPending ? "Saving…" : "Save Drop & Contact"}
+            </Button>
+          </section>
+        )}
 
         <div className="mt-8 space-y-4" data-testid="admin-schedule-editor">
           {entries.map((entry, i) => (

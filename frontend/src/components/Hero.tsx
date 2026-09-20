@@ -2,7 +2,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Flame, MapPin, UtensilsCrossed } from "lucide-react";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
-import { IMG, PHONE_TEL } from "@/data/menu";
+import { IMG } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 const wrap = {
   hidden: {},
@@ -19,6 +20,7 @@ const badge = {
 
 export const Hero = () => {
   const ref = useRef<HTMLElement>(null);
+  const contact = useContact();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yTruck = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const sunRotate = useTransform(scrollYProgress, [0, 1], [0, 120]);
@@ -77,7 +79,7 @@ export const Hero = () => {
           <a href="#schedule" data-testid="hero-find-truck-btn" className="sticker bg-deepblue px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:-rotate-1">
             <MapPin className="mr-2 inline h-4 w-4" /> Find the Truck
           </a>
-          <a href={PHONE_TEL} data-testid="hero-order-now-btn" className="sticker bg-flame px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:rotate-1">
+          <a href={contact.tel} data-testid="hero-order-now-btn" className="sticker bg-flame px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:rotate-1">
             <Flame className="mr-2 inline h-4 w-4" /> Order Now
           </a>
         </motion.div>

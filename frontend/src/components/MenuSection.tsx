@@ -1,9 +1,12 @@
 import { Flame } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Reveal } from "@/components/Reveal";
-import { MENU, PHONE_TEL } from "@/data/menu";
+import { MENU } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
-export const MenuSection = () => (
+export const MenuSection = () => {
+  const contact = useContact();
+  return (
   <section id="menu" className="relative bg-panel/40 py-20 sm:py-28" data-testid="menu-section">
     <div className="mx-auto max-w-7xl px-4 sm:px-6">
       <Reveal>
@@ -58,7 +61,7 @@ export const MenuSection = () => (
                           ))}
                         </span>
                         <a
-                          href={PHONE_TEL}
+                          href={contact.tel}
                           data-testid={`menu-order-${item.id}`}
                           className="ml-auto font-mono2 text-[11px] font-bold uppercase tracking-wider text-flame underline-offset-4 hover:underline"
                         >
@@ -75,4 +78,5 @@ export const MenuSection = () => (
       </Tabs>
     </div>
   </section>
-);
+  );
+};

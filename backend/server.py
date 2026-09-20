@@ -74,11 +74,17 @@ async def seed_schedule():
         await db.schedule.insert_many([{**e, "id": str(uuid.uuid4())} for e in DEFAULT_SCHEDULE])
 
 
+async def seed_settings():
+    if await db.settings.find_one({"key": "site"}) is None:
+        await db.settings.insert_one({"key": "site", **SiteSettings().model_dump()})
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.index_task = asyncio.create_task(ensure_indexes())
     await seed_admin()
     await seed_schedule()
+    await seed_settings()
     yield
     client.close()
 
@@ -140,6 +146,27 @@ class InquiryCreate(BaseModel):
 class Inquiry(InquiryCreate):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class DropSettings(BaseModel):
+    enabled: bool = True
+    drop_at: Optional[str] = None  # ISO 8601 datetime; null => auto next Saturday noon
+    overline: str = "Drop 001 — Primetime Launch"
+    item_name: str = "Secret Lumpia"
+    subtitle: str = "A brand-new lumpia creation hits the truck window. Limited batch. When it's gone, it's gone forever."
+    location_note: str = "TreasureFest \u2605 First 100 servings only"
+
+
+class ContactSettings(BaseModel):
+    phone_display: str = "(415) 555-0199"
+    phone_number: str = "+14155550199"  # digits with country code, no prefix
+    email: str = "eats@kayomestiza.com"
+    instagram: str = "https://instagram.com/kayomestiza"
+
+
+class SiteSettings(BaseModel):
+    drop: DropSettings = Field(default_factory=DropSettings)
+    contact: ContactSettings = Field(default_factory=ContactSettings)
 
 
 async def get_current_admin(request: Request) -> AdminUser:
@@ -223,6 +250,22 @@ async def list_inquiries(admin: AdminUser = Depends(get_current_admin)):
             d["created_at"] = d["created_at"].replace(tzinfo=timezone.utc)
         out.append(Inquiry(**d))
     return out
+
+
+@api_router.get("/settings", response_model=SiteSettings)
+async def get_settings():
+    doc = await db.settings.find_one({"key": "site"})
+    if doc is None:
+        settings = SiteSettings()
+        await db.settings.insert_one({"key": "site", **settings.model_dump()})
+        return settings
+    return SiteSettings(**{k: v for k, v in doc.items() if k in ("drop", "contact")})
+
+
+@api_router.put("/settings", response_model=SiteSettings)
+async def update_settings(body: SiteSettings, admin: AdminUser = Depends(get_current_admin)):
+    await db.settings.update_one({"key": "site"}, {"$set": body.model_dump()}, upsert=True)
+    return body
 
 
 app.include_router(api_router)

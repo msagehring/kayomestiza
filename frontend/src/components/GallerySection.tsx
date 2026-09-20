@@ -1,6 +1,7 @@
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Reveal } from "@/components/Reveal";
-import { IMG, INSTAGRAM } from "@/data/menu";
+import { IMG } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 const SHOTS = [
   { img: IMG.crowd, cap: "Friday night block energy" },
@@ -13,7 +14,9 @@ const SHOTS = [
   { img: IMG.tacos, cap: "Adobo tacos, calamansi squeeze" },
 ];
 
-export const GallerySection = () => (
+export const GallerySection = () => {
+  const contact = useContact();
+  return (
   <section id="gallery" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28" data-testid="gallery-section">
     <Reveal>
       <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">The Feed</p>
@@ -21,7 +24,7 @@ export const GallerySection = () => (
         Street Gallery
       </h2>
       <a
-        href={INSTAGRAM}
+        href={contact.instagram}
         target="_blank"
         rel="noreferrer"
         data-testid="gallery-follow-btn"
@@ -46,4 +49,5 @@ export const GallerySection = () => (
       ))}
     </div>
   </section>
-);
+  );
+};

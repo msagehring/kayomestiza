@@ -14,6 +14,7 @@ export const IMG = {
 };
 
 export const PHONE_DISPLAY = "(415) 555-0199";
+export const PHONE_NUMBER = "+14155550199";
 export const PHONE_TEL = "tel:+14155550199";
 export const PHONE_SMS = "sms:+14155550199";
 export const EMAIL = "eats@kayomestiza.com";

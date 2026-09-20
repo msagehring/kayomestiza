@@ -1,6 +1,7 @@
 import { Flame } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { FAVORITES, PHONE_TEL, type MenuItem } from "@/data/menu";
+import { FAVORITES, type MenuItem } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 const Heat = ({ level }: { level: number }) => (
   <span className="flex gap-0.5" aria-label={`Heat level ${level} of 3`}>
@@ -10,7 +11,9 @@ const Heat = ({ level }: { level: number }) => (
   </span>
 );
 
-const FavCard = ({ item, big, delay }: { item: MenuItem; big?: boolean; delay: number }) => (
+const FavCard = ({ item, big, delay }: { item: MenuItem; big?: boolean; delay: number }) => {
+  const contact = useContact();
+  return (
   <Reveal delay={delay} className={big ? "sm:col-span-2 sm:row-span-2" : ""}>
     <article
       data-testid={`fav-card-${item.id}`}
@@ -37,7 +40,7 @@ const FavCard = ({ item, big, delay }: { item: MenuItem; big?: boolean; delay: n
           </div>
         </div>
         <a
-          href={PHONE_TEL}
+          href={contact.tel}
           data-testid={`fav-order-${item.id}`}
           className="sticker shrink-0 rotate-2 bg-flame px-3 py-2 text-[10px] text-white transition-transform hover:rotate-0"
         >
@@ -46,7 +49,8 @@ const FavCard = ({ item, big, delay }: { item: MenuItem; big?: boolean; delay: n
       </div>
     </article>
   </Reveal>
-);
+  );
+};
 
 export const FanFavorites = () => (
   <section id="favorites" className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28" data-testid="fan-favorites-section">

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { Bell, Flame, Lock } from "lucide-react";
-import { PHONE_SMS } from "@/data/menu";
+import { useSettings, useContact } from "@/hooks/useSettings";
 
-function nextDrop(): number {
+function nextSaturdayNoon(): number {
   const now = new Date();
   const target = new Date(now);
   target.setHours(12, 0, 0, 0);
@@ -12,8 +12,6 @@ function nextDrop(): number {
   target.setDate(now.getDate() + add);
   return target.getTime();
 }
-
-const DROP_TIME = nextDrop();
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -25,13 +23,26 @@ const TimeBox = ({ value, label, testid }: { value: string; label: string; testi
 );
 
 export const DropCountdown = () => {
+  const { drop } = useSettings();
+  const contact = useContact();
   const [now, setNow] = useState(() => Date.now());
+
+  const dropTime = useMemo(() => {
+    if (drop.drop_at) {
+      const t = new Date(drop.drop_at).getTime();
+      if (!Number.isNaN(t)) return t;
+    }
+    return nextSaturdayNoon();
+  }, [drop.drop_at]);
+
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
 
-  const remaining = Math.max(0, DROP_TIME - now);
+  if (!drop.enabled) return null;
+
+  const remaining = Math.max(0, dropTime - now);
   const live = remaining === 0;
   const days = Math.floor(remaining / 86400000);
   const hours = Math.floor((remaining % 86400000) / 3600000);
@@ -50,20 +61,20 @@ export const DropCountdown = () => {
         >
           <p className="inline-flex items-center gap-2 font-mono2 text-xs uppercase tracking-[0.3em] text-flame" data-testid="drop-overline">
             <span className="animate-flame-pulse inline-block h-2 w-2 rounded-full bg-flame" />
-            Drop 001 — Primetime Launch
+            {drop.overline}
           </p>
           <h2 className="display-graffiti mt-4 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-5xl lg:text-6xl">
             Never Seen.
             <br />
             <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Never Tasted.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-sm text-slate-400 sm:text-base">
-            A brand-new lumpia creation hits the truck window Saturday at noon. Limited batch. When it's gone, it's gone forever.
+          <p className="mx-auto mt-4 max-w-md text-sm text-slate-400 sm:text-base" data-testid="drop-subtitle">
+            {drop.subtitle}
           </p>
 
           <div className="mt-6 inline-flex items-center gap-2 border-2 border-dashed border-flame/50 bg-elev px-5 py-3" data-testid="drop-mystery-item">
             <Lock className="h-4 w-4 text-gold" />
-            <span className="font-heading text-sm font-bold uppercase tracking-widest text-slate-300 blur-[3px] select-none">Secret Lumpia</span>
+            <span className="font-heading text-sm font-bold uppercase tracking-widest text-slate-300 blur-[3px] select-none">{drop.item_name}</span>
             <span className="sticker rotate-3 bg-scarlet px-2 py-0.5 text-[9px] text-white">Classified</span>
           </div>
 
@@ -84,12 +95,12 @@ export const DropCountdown = () => {
             <a href="#newsletter" data-testid="drop-notify-btn" className="sticker rotate-[-1deg] bg-flame px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:rotate-1">
               <Bell className="mr-2 inline h-4 w-4" /> Get Drop Alerts
             </a>
-            <a href={PHONE_SMS} data-testid="drop-text-btn" className="sticker rotate-1 bg-transparent px-7 py-4 text-sm text-gold !border-gold transition-transform hover:-translate-y-1 hover:-rotate-1" style={{ borderColor: "#FFD700" }}>
+            <a href={contact.sms} data-testid="drop-text-btn" className="sticker rotate-1 bg-transparent px-7 py-4 text-sm text-gold !border-gold transition-transform hover:-translate-y-1 hover:-rotate-1" style={{ borderColor: "#FFD700" }}>
               Text "DROP" to the Truck
             </a>
           </div>
-          <p className="mt-4 font-mono2 text-[10px] uppercase tracking-[0.25em] text-slate-500">
-            Saturday 12:00 PM &#9733; TreasureFest &#9733; First 100 servings only
+          <p className="mt-4 font-mono2 text-[10px] uppercase tracking-[0.25em] text-slate-500" data-testid="drop-location-note">
+            {drop.location_note}
           </p>
         </motion.div>
       </div>

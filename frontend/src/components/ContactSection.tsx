@@ -9,9 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Reveal } from "@/components/Reveal";
-import { EMAIL, INSTAGRAM, PHONE_DISPLAY, PHONE_TEL } from "@/data/menu";
+import { useContact } from "@/hooks/useSettings";
 
 export const ContactSection = () => {
+  const contact = useContact();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const mutation = useMutation({
     mutationFn: () => apiPost("/inquiries", { type: "contact", ...form }),
@@ -33,18 +34,18 @@ export const ContactSection = () => {
             Contact
           </h2>
           <div className="mt-8 space-y-4">
-            <a href={PHONE_TEL} data-testid="contact-phone-link" className="flex items-center gap-3 text-lg text-slate-200 hover:text-gold">
-              <span className="sticker bg-flame p-2 text-white"><Phone className="h-4 w-4" /></span> {PHONE_DISPLAY}
+            <a href={contact.tel} data-testid="contact-phone-link" className="flex items-center gap-3 text-lg text-slate-200 hover:text-gold">
+              <span className="sticker bg-flame p-2 text-white"><Phone className="h-4 w-4" /></span> {contact.phone_display}
             </a>
-            <a href={`mailto:${EMAIL}`} data-testid="contact-email-link" className="flex items-center gap-3 text-lg text-slate-200 hover:text-gold">
-              <span className="sticker bg-deepblue p-2 text-white"><Mail className="h-4 w-4" /></span> {EMAIL}
+            <a href={contact.mailto} data-testid="contact-email-link" className="flex items-center gap-3 text-lg text-slate-200 hover:text-gold">
+              <span className="sticker bg-deepblue p-2 text-white"><Mail className="h-4 w-4" /></span> {contact.email}
             </a>
             <p className="flex items-center gap-3 text-lg text-slate-200">
               <span className="sticker bg-gold p-2 text-black"><MapPin className="h-4 w-4" /></span> San Francisco Bay Area
             </p>
           </div>
           <div className="mt-8 flex gap-3" data-testid="contact-socials">
-            <a href={INSTAGRAM} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="social-instagram" className="sticker rotate-[-2deg] bg-scarlet p-3 text-white transition-transform hover:rotate-0">
+            <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="social-instagram" className="sticker rotate-[-2deg] bg-scarlet p-3 text-white transition-transform hover:rotate-0">
               <SiInstagram className="h-5 w-5" />
             </a>
             <a href="https://facebook.com/kayomestiza" target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="social-facebook" className="sticker rotate-2 bg-deepblue p-3 text-white transition-transform hover:rotate-0">
