@@ -13,10 +13,10 @@ export const IMG = {
   griddle: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/b3c4f7afa143031c5789a6d1c0dc88f348e72edb81f6bdbb8ac349d309b52887.jpeg",
 };
 
-export const PHONE_DISPLAY = "(415) 555-0199";
-export const PHONE_NUMBER = "+14155550199";
-export const PHONE_TEL = "tel:+14155550199";
-export const PHONE_SMS = "sms:+14155550199";
+export const PHONE_DISPLAY = "826-272-5555";
+export const PHONE_NUMBER = "+18262725555";
+export const PHONE_TEL = "tel:+18262725555";
+export const PHONE_SMS = "sms:+18262725555";
 export const EMAIL = "eats@kayomestiza.com";
 export const INSTAGRAM = "https://instagram.com/kayomestiza";
 
@@ -40,6 +40,63 @@ export interface MenuCategory {
 }
 
 export const MENU: MenuCategory[] = [
+  {
+    id: "combos",
+    label: "Combos & Flights",
+    blurb: "Build-your-box bundles. Suggested pairings, bundle-priced.",
+    items: [
+      {
+        id: "kayo-box",
+        name: "The Kayo Box",
+        description: "Any Griddle item — PB&J Smash, Tocino Smash, Longaniza Melt, or Oh Manok Asul Quesadilla — plus 2 pieces of Traditional Lumpia. Our signature combo.",
+        price: 18,
+        heat: 2,
+        tags: ["Signature", "Meal Combo"],
+        image: IMG.melt,
+        badge: "The Signature",
+      },
+      {
+        id: "street-walk",
+        name: "The Street Walk",
+        description: "2 Baboy Kabobs + 2 Chicken Adobo Tacos. Completely utensil-free and built to carry around a concert, festival, or street fair.",
+        price: 24,
+        heat: 2,
+        tags: ["Utensil-Free", "Festival Ready"],
+        image: IMG.skewers,
+        badge: "Meal Combo",
+      },
+      {
+        id: "soul-roll-flight",
+        name: "The Soul-Roll Flight",
+        description: "1 Cheesesteak Lumpia + 1 Southeast Eggroll + 2 Traditional Lumpia. The full fusion-roll range on one plate — perfect for sharing.",
+        price: 22,
+        heat: 1,
+        tags: ["Sharing", "Tasting Flight"],
+        image: IMG.lumpia,
+        badge: "Built to Share",
+      },
+      {
+        id: "blasian-feast",
+        name: "The Blasian Feast",
+        description: "Any 2 Griddle items + The Soul-Roll Flight. Split the heavy hitters — no guesswork. Built for two.",
+        price: 42,
+        heat: 2,
+        tags: ["For Two", "Feast"],
+        image: IMG.burger,
+        badge: "For Two",
+      },
+      {
+        id: "encore-basket",
+        name: "The Encore Basket",
+        description: "An order of Turon Magic + your choice of Sweet Mango Cream Cheese Lumpia or a slice of Hummingbird Cassava Cake. Hot-and-crispy meets baked comfort.",
+        price: 13,
+        heat: 0,
+        tags: ["Dessert", "Sharing"],
+        image: IMG.turon,
+        badge: "Sweet Finish",
+      },
+    ],
+  },
   {
     id: "skewers",
     label: "Skewers & Tacos",

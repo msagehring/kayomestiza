@@ -40,7 +40,7 @@ export const Hero = () => {
         <motion.div variants={wrap} initial="hidden" animate="show">
           <div className="overflow-hidden">
             <motion.p variants={line} className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold sm:text-sm" data-testid="hero-overline">
-              Filipino-American Street Eats &#9733; Est. on the Block
+              Blasian Street Eats
             </motion.p>
           </div>
           <h1 className="mt-6">

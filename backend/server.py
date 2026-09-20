@@ -158,8 +158,8 @@ class DropSettings(BaseModel):
 
 
 class ContactSettings(BaseModel):
-    phone_display: str = "(415) 555-0199"
-    phone_number: str = "+14155550199"  # digits with country code, no prefix
+    phone_display: str = "826-272-5555"
+    phone_number: str = "+18262725555"  # digits with country code, no prefix
     email: str = "eats@kayomestiza.com"
     instagram: str = "https://instagram.com/kayomestiza"
 

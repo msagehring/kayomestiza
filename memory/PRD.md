@@ -32,12 +32,15 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Graffiti wordmark hero (concept logo isolated to transparent /wordmark.png)
 - Crown favicon + apple-touch-icon cropped from the logo crown
 - Drop 001 primetime countdown section (live timer to Saturday noon, classified mystery item, drop-alert CTAs)
+- **Site Settings (2026-07-20)**: shared `settings` doc in MongoDB. GET /api/settings (public), PUT /api/settings (admin). `/admin` "Launch Drop & Contact" editor controls: drop enabled toggle, drop date/time, item name, overline, subtitle, location note + contact phone (display + dial), email, Instagram. DropCountdown + all Order/Call/Text/email/Instagram links across the site derive from settings via `useSettings()`/`useContact()` hook. Countdown uses drop_at (or auto next-Saturday-noon when blank). Tested end-to-end (iteration_1.json — all pass).
+- **Contact details set**: phone 826-272-5555 (+18262725555). Drop date currently ~60 days out.
+- **Combos & Flights menu (2026-07-20)**: new lead menu category with 5 bundles — The Kayo Box ($18), The Street Walk ($24), The Soul-Roll Flight ($22), The Blasian Feast ($42), The Encore Basket ($13). Prices are suggested bundle prices (editable in code `src/data/menu.ts`).
+- Hero overline → "Blasian Street Eats"; footer tag → "Proudly Blasian since 1982".
 
 ## In Progress
 - Gemini AI (user's own Google AI Studio key, pending): AI Menu Concierge chat, admin Specials Image Generator (Nano Banana), admin Copywriter. Playbook ready: `google-genai` SDK, `client.aio.models.generate_content`, models via GEMINI_TEXT_MODEL / GEMINI_IMAGE_MODEL env. WAITING ON: GEMINI_API_KEY from user → goes in backend/.env.
 
 ## Backlog
-- P1: Real phone number + real Instagram/Facebook/TikTok handles (currently placeholders)
 - P1: Per-location live map pins (map is a static Mission Bay embed)
 - P2: Full cart / online checkout (user chose call-to-order for now)
 - P2: Admin menu editor (menu is currently in code)

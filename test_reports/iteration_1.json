@@ -1,0 +1,26 @@
+{
+  "summary": "Full end-to-end verification of new Launch Drop & Contact admin settings feature. All admin edit → save → persist → public reflection flows work. Toggle enabled hides/shows drop section on public homepage. All contact link consumers (OrderSection, ContactSection, Footer, Gallery, Header socials) correctly derive tel:/sms:/mailto:/Instagram URLs from settings. Backend auth (401 unauth PUT, public GET) verified via curl. Settings were restored to the spec-provided defaults at end of run.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_1.json"],
+  "action_items": [
+    "IMPORTANT: When the previous testing run started, the live DB settings were already contaminated with TEST_* values (item_name='TEST Sizzling Sisig', enabled=false, phone=(415) 555-0123, email=qa-test@kayomestiza.com, drop_at=2026-10-20). This indicates a prior test session did not restore state. The current iteration explicitly restored to the spec defaults (enabled=true, drop_at=null, item_name='Secret Lumpia', overline='Drop 001 — Primetime Launch', subtitle='A brand-new lumpia creation hits the truck window. Limited batch. When it\\'s gone, it\\'s gone forever.', location_note='TreasureFest ★ First 100 servings only', phone_display='(415) 555-0199', phone_number='+14155550199', email='eats@kayomestiza.com', instagram='https://instagram.com/kayomestiza'). Please confirm these match the brand's desired live values before deploy."
+  ],
+  "critical_code_review_comments": [
+    "seed_settings() in backend appears to only seed if the document is missing — so if an admin (or test) overwrites values, they stay overwritten across restarts. That's expected for admin-editable config, just be aware regression tests must always restore state.",
+    "DropCountdown auto next-Saturday-noon fallback uses browser-local time (setHours) which will differ across visitor timezones. If the intended semantics is a single global drop moment, this is a subtle bug; the admin-configured drop_at path uses UTC ISO and is correct.",
+    "useSettings default constants import from '@/data/menu' — ensure those constants (PHONE_DISPLAY etc.) stay in sync with the seeded backend defaults, otherwise brief pre-fetch flash shows stale info."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@kayomestiza.com / KayoFire2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None — used existing seeded admin, restored settings to spec defaults at end.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Settings doc is single shared MongoDB record. Any test that PUTs /api/settings MUST capture the current state at start AND explicitly restore to the KAYO MESTIZA production defaults at end (see action_items). data-testids verified: admin-settings-editor, settings-drop-{at,item,overline,location,subtitle,enabled}, settings-{phone-display,phone-number,email,instagram}, settings-save-btn, drop-countdown-section, drop-{overline,mystery-item,subtitle,location-note,timer}, order-{phone-display,call-btn,text-btn}, contact-{phone-link,email-link}, social-instagram, footer-social-instagram, gallery-follow-btn, footer-{phone-link,email-link}. All work.",
+  "rca_of_the_issue": "N/A — no bugs found. Only environmental issue: leftover contaminated DB state from a prior session, mitigated by restore."
+}

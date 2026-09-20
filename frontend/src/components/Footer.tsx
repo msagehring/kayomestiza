@@ -89,7 +89,7 @@ export const Footer = () => {
             <span className="inline-block h-3 w-5 bg-deepblue" />
             <span className="inline-block h-3 w-5 bg-scarlet" />
             <span className="inline-block h-3 w-5 bg-gold" />
-            Proudly Filipino-American
+            Proudly Blasian since 1982
           </p>
         </div>
       </div>
