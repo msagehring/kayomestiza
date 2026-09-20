@@ -21,6 +21,17 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Truck owner/admin (edits weekly schedule, reads inquiry inbox at /admin)
 
 ## Implemented (2026-09)
+- **Pre-launch cleanup + Fredericksburg pivot (2026-09-20)**
+  - Truck is now based in **Fredericksburg, VA**. All San Francisco / "in the Bay" copy, the SF map embed, and the Bay-Area venue seed are gone. Hero image regenerated without the old "MANILA TO SF" graffiti.
+  - **Pricing (owner-supplied)**: combos $13 / $14 / $12 / $28 / $10; a la carte repriced so combos read as a real discount — Griddle $9–11, Traditional Lumpia (2 pc) $4.50, Baboy Kabob $4/skewer, Adobo Taco $4 ea, specialty rolls $4.50, Turon $6, cassava/mango $5.50, carrot cheesecake $6. All prices render via `fmtPrice()` → `$X.XX`.
+  - **Pop-Ups & Events** replaces the fixed weekly schedule (nav label too). Schedule starts empty with a "No pop-ups announced yet" state + "Get Pop-Up Alerts" CTA; owner adds approved spots in `/admin`. No auto-seeded venues anymore.
+  - **Drop → waitlist**: with `drop.drop_at = null` the section renders "First Pop-Up Coming Soon" with no timer and no blurred mystery item. Setting a date in `/admin` restores the countdown.
+  - **Catering**: per-guest pricing and capacity promises removed — three "Quoted per event" packages plus a note that nothing is confirmed until menu/timing/location are agreed.
+  - **Socials**: Facebook + TikTok added to settings; all social icons (footer, contact, gallery follow button) stay hidden until a real URL is saved in `/admin`. Placeholder IG link cleared.
+  - Bug fixed by testing agent: `PUT /api/schedule` 500 on an empty entries array.
+  - STILL PLACEHOLDER: phone `826-272-5555` and email `eats@kayomestiza.com` — owner must replace in `/admin` before launch (note shown in the admin settings editor). Owner also still owes real weekly pop-up spots.
+  - Verified: 19/19 backend pytest + full frontend pass (`/app/test_reports/iteration_3.json`).
+
 - **Gemini AI Suite (2026-09-20)** — user's own Google AI Studio key in `backend/.env` (`GEMINI_API_KEY`), never exposed to the browser.
   - `POST /api/ai/concierge` (public): Menu Concierge chat. Grounded on the live menu JSON sent from `src/data/menu.ts` + the MongoDB truck schedule; refuses to invent items/prices. Multi-turn memory per `session_id` in `db.ai_chats`. UI: `MenuConcierge.tsx` floating "Ask the Truck" widget on Home.
   - `POST /api/ai/copy` (admin): brand copywriter, 3 variants per brief, channel picker (IG caption / SMS blast / menu description / hero headline / flyer).

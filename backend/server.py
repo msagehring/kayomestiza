@@ -58,19 +58,6 @@ async def seed_admin():
         await db.users.update_one({"email": email}, {"$set": {"password_hash": hash_password(password)}})
 
 
-PLACEHOLDER_SCHEDULE_LOCATIONS = [
-    "Spark Social SF", "Off the Grid: Fort Mason", "SoMa Streat Food Park", "Oakland First Fridays",
-    "TreasureFest", "Undiscovered SF", "Kitchen Prep Day", "Downtown Caroline Street", "Central Park",
-    "Riverfront Park", "Hurkamp Park", "Spotsylvania Towne Centre", "Old Town Farmers Market",
-]
-
-
-async def seed_schedule():
-    # No auto-seeded locations: the site shows "no pop-ups announced yet" until the owner adds
-    # approved spots in /admin. This clears the earlier placeholder venues once.
-    await db.schedule.delete_many({"location": {"$in": PLACEHOLDER_SCHEDULE_LOCATIONS}})
-
-
 async def seed_settings():
     if await db.settings.find_one({"key": "site"}) is None:
         await db.settings.insert_one({"key": "site", **SiteSettings().model_dump()})
@@ -80,7 +67,6 @@ async def seed_settings():
 async def lifespan(app: FastAPI):
     app.state.index_task = asyncio.create_task(ensure_indexes())
     await seed_admin()
-    await seed_schedule()
     await seed_settings()
     yield
     client.close()
@@ -228,7 +214,8 @@ async def get_schedule():
 @api_router.put("/schedule", response_model=ScheduleResponse)
 async def update_schedule(body: ScheduleUpdate, admin: AdminUser = Depends(get_current_admin)):
     await db.schedule.delete_many({})
-    await db.schedule.insert_many([{**e.model_dump(), "id": str(uuid.uuid4())} for e in body.entries])
+    if body.entries:
+        await db.schedule.insert_many([{**e.model_dump(), "id": str(uuid.uuid4())} for e in body.entries])
     return await get_schedule()
 
 

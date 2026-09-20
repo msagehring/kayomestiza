@@ -1,5 +1,5 @@
 export const IMG = {
-  hero: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/0cd3c590003f5ece2d8cd69c779bfebf18c222b328fd36e443b6a1131567427b.jpeg",
+  hero: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/d7409752881773c3cd9a57e868965e653e3fec58d9e42ab6c135608bac948a01.jpeg",
   lumpia: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/c3e6613c998446d5e9ca77d539608c6a255e0db82902f03a9fd1903e253eb31d.jpeg",
   burger: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/0d0f5f3debae523ebea9be1e896e4ba2e4a25e88dda6884e106ba8f37d92ebd5.jpeg",
   melt: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/8883f3f3ecad494bd512b4a7dae256294c320d3b234942e45258738ff1813ae3.jpeg",

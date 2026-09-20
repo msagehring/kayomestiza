@@ -1,0 +1,41 @@
+{
+  "summary": "Full backend + frontend verification of the pre-launch cleanup (Fredericksburg pivot, new combo/a la carte prices, Pop-Ups & Events empty state, drop waitlist mode, conditional socials). 19/19 pytest cases pass (6 new + 13 AI regression). Frontend confirms: all prices render with 2 decimals across every menu tab and fan-favorites, schedule section shows the Pop-Ups & Events heading and empty state on a fresh DB, drop section is in waitlist mode (no timer, no mystery item, 'JOIN THE LIST' CTA), placeholder socials are hidden across footer/contact/gallery. Setting a drop date ~30d out via /admin correctly renders drop-timer with day/hour/min/sec boxes (verified 29 days / 23 hours read-out); clearing the date restores waitlist mode. Adding IG/FB/TT URLs in /admin makes footer + gallery follow button render; clearing them hides everything again. DB left in required end state (schedule empty, drop_at null, socials empty). ONE BACKEND BUG FOUND AND FIXED: PUT /api/schedule with an empty entries array crashed with 500 (motor insert_many rejects []); guarded with `if body.entries:` — this blocked the exact 'remove last pop-up so empty state returns' workflow.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "PUT /api/schedule", "issue": "500 when entries=[] (motor insert_many empty-list crash) — FIXED in this run"}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Hero image", "issues": ["Hero background photo contains a graffiti 'MANILA TO SF' painted onto the jeepney/truck. Baked into the image asset, not text — will not appear in copy/AI answers. Owner may still want to swap the hero to a version without 'SF' since the truck is now Fredericksburg-based."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_launch_cleanup.py",
+    "/app/backend/tests/test_ai_suite.py",
+    "/app/test_reports/pytest/launch_cleanup.xml"
+  ],
+  "action_items": [
+    "(Optional) Replace hero image with a variant that doesn't have 'MANILA TO SF' graffiti now that truck is Fredericksburg-based."
+  ],
+  "critical_code_review_comments": [
+    "PUT /api/schedule now guards empty entries — consider the same pattern for any other endpoint that bulk-inserts a client-supplied list (currently only schedule uses insert_many).",
+    "seed_schedule() only ever runs delete_many with the PLACEHOLDER_SCHEDULE_LOCATIONS list. Good — non-destructive for owner-added pop-ups. Note: if the owner ever legitimately names a spot 'Downtown Caroline Street' or 'Hurkamp Park' (both real Fredericksburg parks in the placeholder list), a restart will delete it. Consider tagging placeholder rows with a `seed_source` field instead of matching on location string.",
+    "backend/server.py is now ~450 lines and mixes AI, auth, settings, schedule, inquiries — splitting into routers/ (auth.py, schedule.py, settings.py, ai.py) would help future maintainability. Not blocking.",
+    "Contact section uses testids `social-instagram/facebook/tiktok` while Footer uses `footer-social-*`. Fine, but inconsistent — future tests should know both prefixes exist."
+  ],
+  "updated_files": [
+    "/app/backend/server.py (guard empty entries in PUT /api/schedule)",
+    "/app/backend/tests/test_launch_cleanup.py (new pytest suite)"
+  ],
+  "success_rate": {"backend": "100% (19/19 after fix)", "frontend": "100%"},
+  "test_credentials": "admin@kayomestiza.com / KayoFire2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None persisted. Test wrote/cleared a TEST_PopUp schedule entry, TEST_price_check ai_chat session, and one TEST_Buyer catering inquiry (retained in /admin inbox — harmless, name-prefixed).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "DB state at end: schedule empty, settings.drop.drop_at null, all three social fields empty — matches user's required end state. Only real bug found this iteration was the empty-list insert_many crash on PUT /api/schedule; fixed with a one-line guard. All price format assertions ($X.XX) pass across all 5 menu tabs and fan-favorites; verified per-tab: Combos {10,12,13,14,28}, Skewers {4}, Griddle {9,10,11}, Lumpia {4.5,5.5,6}, Sweet {5.5,6}. Waitlist->timer->waitlist toggle round-trips cleanly via /admin. The hero image contains a baked-in 'MANILA TO SF' graffiti on the jeepney — flagged as a design item, not a code bug.",
+  "rca_of_the_issue": "PUT /api/schedule bug: FastAPI handler called `db.schedule.insert_many([])` after `delete_many({})` when body.entries was empty, and pymongo raises `TypeError: documents must be a non-empty list`. Fix: wrap insert_many in `if body.entries:`. Impact before fix: admin could add pop-ups but could NOT return to the empty-state UI (which is the required launch state), because clearing all rows returned 500 while still deleting existing rows — so the frontend showed a toast error but the DB was actually cleared, giving an inconsistent user experience."
+}
