@@ -20,6 +20,14 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Event planner (catering packages + inquiry form)
 - Truck owner/admin (edits weekly schedule, reads inquiry inbox at /admin)
 
+## Implemented (2026-09)
+- **Gemini AI Suite (2026-09-20)** — user's own Google AI Studio key in `backend/.env` (`GEMINI_API_KEY`), never exposed to the browser.
+  - `POST /api/ai/concierge` (public): Menu Concierge chat. Grounded on the live menu JSON sent from `src/data/menu.ts` + the MongoDB truck schedule; refuses to invent items/prices. Multi-turn memory per `session_id` in `db.ai_chats`. UI: `MenuConcierge.tsx` floating "Ask the Truck" widget on Home.
+  - `POST /api/ai/copy` (admin): brand copywriter, 3 variants per brief, channel picker (IG caption / SMS blast / menu description / hero headline / flyer).
+  - `POST /api/ai/specials-image` (admin): Nano Banana specials image generator. **Currently returns HTTP 402 with a friendly message — the user's AI Studio key has no image quota on the free tier; enabling billing on that Google Cloud project switches it on.**
+  - Text model chain (`GEMINI_TEXT_MODELS`): gemini-3.8-flash → 3.7-flash → 3.5-flash, because 3.8/3.7 intermittently return 503 "high demand".
+  - Admin UI: `AiStudio.tsx` panel at top of `/admin`. Tested end-to-end (iteration_2.json — 13/13 backend, frontend 100%).
+
 ## Implemented (2026-07)
 - Kinetic masked-reveal hero with the real graffiti wordmark (from the concept logos, isolated to a transparent PNG at /wordmark.png) + parallax sun watermark + floating dish card
 - Sticker marquee ribbon, bento Fan Favorites grid (5 items w/ heat levels)
@@ -38,7 +46,7 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Hero overline → "Blasian Street Eats"; footer tag → "Proudly Blasian since 1982".
 
 ## In Progress
-- Gemini AI (user's own Google AI Studio key, pending): AI Menu Concierge chat, admin Specials Image Generator (Nano Banana), admin Copywriter. Playbook ready: `google-genai` SDK, `client.aio.models.generate_content`, models via GEMINI_TEXT_MODEL / GEMINI_IMAGE_MODEL env. WAITING ON: GEMINI_API_KEY from user → goes in backend/.env.
+- None. (Gemini AI Suite shipped 2026-09-20; specials image generator blocked only by Google billing on the user's key.)
 
 ## Backlog
 - P1: Per-location live map pins (map is a static Mission Bay embed)
