@@ -23,15 +23,17 @@ export const GallerySection = () => {
       <h2 className="display-graffiti mt-3 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-4xl lg:text-5xl">
         Street Gallery
       </h2>
-      <a
-        href={contact.instagram}
-        target="_blank"
-        rel="noreferrer"
-        data-testid="gallery-follow-btn"
-        className="sticker mt-6 inline-block rotate-[-2deg] bg-deepblue px-5 py-3 text-xs text-white transition-transform hover:rotate-0"
-      >
-        <SiInstagram className="mr-2 inline h-4 w-4" /> Follow @kayomestiza
-      </a>
+      {contact.instagram && (
+        <a
+          href={contact.instagram}
+          target="_blank"
+          rel="noreferrer"
+          data-testid="gallery-follow-btn"
+          className="sticker mt-6 inline-block rotate-[-2deg] bg-deepblue px-5 py-3 text-xs text-white transition-transform hover:rotate-0"
+        >
+          <SiInstagram className="mr-2 inline h-4 w-4" /> Follow Kayo Mestiza
+        </a>
+      )}
     </Reveal>
     <div className="mt-10 columns-2 gap-4 sm:columns-3 lg:columns-4" data-testid="gallery-grid">
       {SHOTS.map((s, i) => (

@@ -30,15 +30,26 @@ export const ScheduleSection = () => {
       <Reveal>
         <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">Catch the Truck</p>
         <h2 className="display-graffiti mt-3 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-4xl lg:text-5xl">
-          Truck Schedule
+          Pop-Ups &amp; Events
         </h2>
       </Reveal>
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <div className="space-y-4" data-testid="schedule-list">
           {entries.length === 0 && (
-            <p className="border-2 border-dashed border-white/15 p-6 text-sm text-slate-400">
-              Schedule is loading or temporarily unavailable — call the truck for today's spot.
-            </p>
+            <div className="border-2 border-dashed border-white/15 p-6" data-testid="schedule-empty-state">
+              <p className="font-heading text-base font-bold uppercase text-gold">No pop-ups announced yet</p>
+              <p className="mt-2 text-sm text-slate-400">
+                We're locking in our first Fredericksburg spots now. Join the list and you'll get the date, time and
+                location before anyone else.
+              </p>
+              <a
+                href="#newsletter"
+                data-testid="schedule-join-list-btn"
+                className="sticker mt-5 inline-block rotate-[-1deg] bg-flame px-5 py-3 text-xs text-white transition-transform hover:rotate-0"
+              >
+                Get Pop-Up Alerts
+              </a>
+            </div>
           )}
           {entries.map((e, i) => {
             const isToday = e.day === TODAY && !e.closed;
@@ -86,11 +97,11 @@ export const ScheduleSection = () => {
           <div className="clip-frame sticky top-24 border-2 border-gold/50 bg-panel p-2" data-testid="schedule-map">
             <div className="flex items-center gap-2 px-2 py-3">
               <MapPin className="h-4 w-4 text-flame" />
-              <span className="font-heading text-sm font-bold uppercase">Home turf: Mission Bay, SF</span>
+              <span className="font-heading text-sm font-bold uppercase">Home turf: Fredericksburg, VA</span>
             </div>
             <iframe
               title="Kayo Mestiza truck map"
-              src="https://www.google.com/maps?q=Mission%20Bay%2C%20San%20Francisco%2C%20CA&output=embed"
+              src="https://www.google.com/maps?q=Fredericksburg%2C%20VA&output=embed"
               className="clip-frame aspect-[4/3] w-full border-0"
               loading="lazy"
             />

@@ -1,7 +1,7 @@
 import { Flame } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Reveal } from "@/components/Reveal";
-import { MENU } from "@/data/menu";
+import { MENU, fmtPrice } from "@/data/menu";
 import { useContact } from "@/hooks/useSettings";
 
 export const MenuSection = () => {
@@ -46,7 +46,7 @@ export const MenuSection = () => {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <h3 className="font-heading text-base font-bold uppercase tracking-tight text-white sm:text-lg">{item.name}</h3>
-                        <span className="shrink-0 font-mono2 text-base font-bold text-gold">${item.price}</span>
+                        <span className="shrink-0 font-mono2 text-base font-bold text-gold">{fmtPrice(item.price)}</span>
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.description}</p>
                       <div className="mt-3 flex flex-wrap items-center gap-2">

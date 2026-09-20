@@ -58,20 +58,17 @@ async def seed_admin():
         await db.users.update_one({"email": email}, {"$set": {"password_hash": hash_password(password)}})
 
 
-DEFAULT_SCHEDULE = [
-    {"day": "Monday", "time": "CLOSED", "location": "Kitchen Prep Day", "address": "", "note": "Restocking the fire. See you Tuesday.", "closed": True},
-    {"day": "Tuesday", "time": "5:00 PM - 10:00 PM", "location": "Spark Social SF", "address": "601 Mission Bay Blvd N, San Francisco, CA", "note": "Taco Tuesday: Adobo Tacos $2 off", "closed": False},
-    {"day": "Wednesday", "time": "5:00 PM - 10:00 PM", "location": "Off the Grid: Fort Mason", "address": "2 Marina Blvd, San Francisco, CA", "note": "", "closed": False},
-    {"day": "Thursday", "time": "11:30 AM - 2:30 PM", "location": "SoMa Streat Food Park", "address": "428 11th St, San Francisco, CA", "note": "Lunch rush only", "closed": False},
-    {"day": "Friday", "time": "5:00 PM - 11:00 PM", "location": "Oakland First Fridays", "address": "Telegraph Ave, Oakland, CA", "note": "Late-night lumpia drop", "closed": False},
-    {"day": "Saturday", "time": "12:00 PM - 9:00 PM", "location": "TreasureFest", "address": "Treasure Island, San Francisco, CA", "note": "Full menu + Turon Magic all day", "closed": False},
-    {"day": "Sunday", "time": "11:00 AM - 4:00 PM", "location": "Undiscovered SF", "address": "888 Brannan St, San Francisco, CA", "note": "Hummingbird Cassava Cake while it lasts", "closed": False},
+PLACEHOLDER_SCHEDULE_LOCATIONS = [
+    "Spark Social SF", "Off the Grid: Fort Mason", "SoMa Streat Food Park", "Oakland First Fridays",
+    "TreasureFest", "Undiscovered SF", "Kitchen Prep Day", "Downtown Caroline Street", "Central Park",
+    "Riverfront Park", "Hurkamp Park", "Spotsylvania Towne Centre", "Old Town Farmers Market",
 ]
 
 
 async def seed_schedule():
-    if await db.schedule.count_documents({}) == 0:
-        await db.schedule.insert_many([{**e, "id": str(uuid.uuid4())} for e in DEFAULT_SCHEDULE])
+    # No auto-seeded locations: the site shows "no pop-ups announced yet" until the owner adds
+    # approved spots in /admin. This clears the earlier placeholder venues once.
+    await db.schedule.delete_many({"location": {"$in": PLACEHOLDER_SCHEDULE_LOCATIONS}})
 
 
 async def seed_settings():
@@ -150,18 +147,20 @@ class Inquiry(InquiryCreate):
 
 class DropSettings(BaseModel):
     enabled: bool = True
-    drop_at: Optional[str] = None  # ISO 8601 datetime; null => auto next Saturday noon
-    overline: str = "Drop 001 — Primetime Launch"
-    item_name: str = "Secret Lumpia"
-    subtitle: str = "A brand-new lumpia creation hits the truck window. Limited batch. When it's gone, it's gone forever."
-    location_note: str = "TreasureFest \u2605 First 100 servings only"
+    drop_at: Optional[str] = None  # ISO 8601 datetime; null => "coming soon" waitlist mode (no timer)
+    overline: str = "Opening Soon"
+    item_name: str = ""
+    subtitle: str = "Kayo Mestiza is firing up its first pop-up. Join the list and you'll be the first to know the date, the spot, and the menu."
+    location_note: str = "Fredericksburg, VA \u2605 Locations announced to the list first"
 
 
 class ContactSettings(BaseModel):
     phone_display: str = "826-272-5555"
     phone_number: str = "+18262725555"  # digits with country code, no prefix
     email: str = "eats@kayomestiza.com"
-    instagram: str = "https://instagram.com/kayomestiza"
+    instagram: str = ""
+    facebook: str = ""
+    tiktok: str = ""
 
 
 class SiteSettings(BaseModel):

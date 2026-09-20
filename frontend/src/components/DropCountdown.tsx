@@ -3,16 +3,6 @@ import { motion } from "motion/react";
 import { Bell, Flame, Lock } from "lucide-react";
 import { useSettings, useContact } from "@/hooks/useSettings";
 
-function nextSaturdayNoon(): number {
-  const now = new Date();
-  const target = new Date(now);
-  target.setHours(12, 0, 0, 0);
-  let add = (6 - now.getDay() + 7) % 7; // Saturday
-  if (add === 0 && now.getTime() > target.getTime()) add = 7;
-  target.setDate(now.getDate() + add);
-  return target.getTime();
-}
-
 const pad = (n: number) => String(n).padStart(2, "0");
 
 const TimeBox = ({ value, label, testid }: { value: string; label: string; testid: string }) => (
@@ -27,12 +17,11 @@ export const DropCountdown = () => {
   const contact = useContact();
   const [now, setNow] = useState(() => Date.now());
 
+  // No date set in /admin => waitlist mode: no timer, no fake "drop" promise.
   const dropTime = useMemo(() => {
-    if (drop.drop_at) {
-      const t = new Date(drop.drop_at).getTime();
-      if (!Number.isNaN(t)) return t;
-    }
-    return nextSaturdayNoon();
+    if (!drop.drop_at) return null;
+    const t = new Date(drop.drop_at).getTime();
+    return Number.isNaN(t) ? null : t;
   }, [drop.drop_at]);
 
   useEffect(() => {
@@ -42,12 +31,8 @@ export const DropCountdown = () => {
 
   if (!drop.enabled) return null;
 
-  const remaining = Math.max(0, dropTime - now);
+  const remaining = dropTime === null ? null : Math.max(0, dropTime - now);
   const live = remaining === 0;
-  const days = Math.floor(remaining / 86400000);
-  const hours = Math.floor((remaining % 86400000) / 3600000);
-  const mins = Math.floor((remaining % 3600000) / 60000);
-  const secs = Math.floor((remaining % 60000) / 1000);
 
   return (
     <section id="drop" className="grain relative overflow-hidden bg-black py-16 sm:py-24" data-testid="drop-countdown-section">
@@ -64,39 +49,52 @@ export const DropCountdown = () => {
             {drop.overline}
           </p>
           <h2 className="display-graffiti mt-4 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-5xl lg:text-6xl">
-            Never Seen.
-            <br />
-            <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Never Tasted.</span>
+            {remaining === null ? (
+              <>
+                First Pop-Up
+                <br />
+                <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Coming Soon.</span>
+              </>
+            ) : (
+              <>
+                Never Seen.
+                <br />
+                <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Never Tasted.</span>
+              </>
+            )}
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm text-slate-400 sm:text-base" data-testid="drop-subtitle">
             {drop.subtitle}
           </p>
 
-          <div className="mt-6 inline-flex items-center gap-2 border-2 border-dashed border-flame/50 bg-elev px-5 py-3" data-testid="drop-mystery-item">
-            <Lock className="h-4 w-4 text-gold" />
-            <span className="font-heading text-sm font-bold uppercase tracking-widest text-slate-300 blur-[3px] select-none">{drop.item_name}</span>
-            <span className="sticker rotate-3 bg-scarlet px-2 py-0.5 text-[9px] text-white">Classified</span>
-          </div>
-
-          {live ? (
-            <p className="mt-10 font-heading text-2xl font-bold uppercase text-gold sm:text-4xl" data-testid="drop-live-banner">
-              <Flame className="mr-2 inline h-7 w-7 text-flame" /> The drop is LIVE — find the truck
-            </p>
-          ) : (
-            <div className="mt-10 flex flex-wrap items-stretch justify-center gap-3 sm:gap-4" data-testid="drop-timer">
-              <TimeBox value={pad(days)} label="Days" testid="drop-countdown-days" />
-              <TimeBox value={pad(hours)} label="Hours" testid="drop-countdown-hours" />
-              <TimeBox value={pad(mins)} label="Mins" testid="drop-countdown-mins" />
-              <TimeBox value={pad(secs)} label="Secs" testid="drop-countdown-secs" />
+          {remaining !== null && drop.item_name && (
+            <div className="mt-6 inline-flex items-center gap-2 border-2 border-dashed border-flame/50 bg-elev px-5 py-3" data-testid="drop-mystery-item">
+              <Lock className="h-4 w-4 text-gold" />
+              <span className="font-heading text-sm font-bold uppercase tracking-widest text-slate-300 blur-[3px] select-none">{drop.item_name}</span>
+              <span className="sticker rotate-3 bg-scarlet px-2 py-0.5 text-[9px] text-white">Classified</span>
             </div>
           )}
 
+          {remaining !== null &&
+            (live ? (
+              <p className="mt-10 font-heading text-2xl font-bold uppercase text-gold sm:text-4xl" data-testid="drop-live-banner">
+                <Flame className="mr-2 inline h-7 w-7 text-flame" /> The drop is LIVE — find the truck
+              </p>
+            ) : (
+              <div className="mt-10 flex flex-wrap items-stretch justify-center gap-3 sm:gap-4" data-testid="drop-timer">
+                <TimeBox value={pad(Math.floor(remaining / 86400000))} label="Days" testid="drop-countdown-days" />
+                <TimeBox value={pad(Math.floor((remaining % 86400000) / 3600000))} label="Hours" testid="drop-countdown-hours" />
+                <TimeBox value={pad(Math.floor((remaining % 3600000) / 60000))} label="Mins" testid="drop-countdown-mins" />
+                <TimeBox value={pad(Math.floor((remaining % 60000) / 1000))} label="Secs" testid="drop-countdown-secs" />
+              </div>
+            ))}
+
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a href="#newsletter" data-testid="drop-notify-btn" className="sticker rotate-[-1deg] bg-flame px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:rotate-1">
-              <Bell className="mr-2 inline h-4 w-4" /> Get Drop Alerts
+              <Bell className="mr-2 inline h-4 w-4" /> {remaining === null ? "Join the List" : "Get Drop Alerts"}
             </a>
             <a href={contact.sms} data-testid="drop-text-btn" className="sticker rotate-1 bg-transparent px-7 py-4 text-sm text-gold !border-gold transition-transform hover:-translate-y-1 hover:-rotate-1" style={{ borderColor: "#FFD700" }}>
-              Text "DROP" to the Truck
+              {remaining === null ? "Text the Truck" : 'Text "DROP" to the Truck'}
             </a>
           </div>
           <p className="mt-4 font-mono2 text-[10px] uppercase tracking-[0.25em] text-slate-500" data-testid="drop-location-note">

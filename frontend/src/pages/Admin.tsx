@@ -207,7 +207,7 @@ export default function Admin() {
                     onChange={(e) => setSettings((s) => s && { ...s, drop: { ...s.drop, drop_at: localInputToIso(e.target.value) } })}
                     className="mt-2 border-white/20 bg-coal text-white"
                   />
-                  <p className="mt-1 font-mono2 text-[10px] uppercase text-slate-500">Leave blank for auto next-Saturday-noon</p>
+                  <p className="mt-1 font-mono2 text-[10px] uppercase text-slate-500">Leave blank for "first pop-up coming soon" mode (no timer)</p>
                 </div>
                 <div>
                   <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Item name</Label>
@@ -284,11 +284,36 @@ export default function Admin() {
                   <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Instagram URL</Label>
                   <Input
                     data-testid="settings-instagram"
+                    placeholder="https://instagram.com/yourhandle"
                     value={settings.contact.instagram}
                     onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, instagram: e.target.value } })}
                     className="mt-2 border-white/20 bg-coal text-white"
                   />
                 </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Facebook URL</Label>
+                  <Input
+                    data-testid="settings-facebook"
+                    placeholder="https://facebook.com/yourpage"
+                    value={settings.contact.facebook}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, facebook: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <div>
+                  <Label className="font-mono2 text-xs uppercase tracking-wider text-slate-300">TikTok URL</Label>
+                  <Input
+                    data-testid="settings-tiktok"
+                    placeholder="https://tiktok.com/@yourhandle"
+                    value={settings.contact.tiktok}
+                    onChange={(e) => setSettings((s) => s && { ...s, contact: { ...s.contact, tiktok: e.target.value } })}
+                    className="mt-2 border-white/20 bg-coal text-white"
+                  />
+                </div>
+                <p className="font-mono2 text-[10px] uppercase leading-relaxed tracking-wider text-slate-500 sm:col-span-2" data-testid="settings-contact-note">
+                  Phone and email appear on every Order / Call / Text button — replace the placeholders before launch.
+                  Social icons stay hidden until you paste a URL.
+                </p>
               </div>
             </div>
 

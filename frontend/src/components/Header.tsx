@@ -7,7 +7,7 @@ import { useContact } from "@/hooks/useSettings";
 export const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Menu", href: "#menu" },
-  { label: "Truck Schedule", href: "#schedule" },
+  { label: "Pop-Ups & Events", href: "#schedule" },
   { label: "Order", href: "#order" },
   { label: "Catering", href: "#catering" },
   { label: "About", href: "#about" },

@@ -4,7 +4,6 @@ import {
   PHONE_DISPLAY,
   PHONE_NUMBER,
   EMAIL,
-  INSTAGRAM,
 } from "@/data/menu";
 
 export interface DropSettings {
@@ -21,6 +20,8 @@ export interface ContactSettings {
   phone_number: string;
   email: string;
   instagram: string;
+  facebook: string;
+  tiktok: string;
 }
 
 export interface SiteSettings {
@@ -34,17 +35,19 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   drop: {
     enabled: true,
     drop_at: null,
-    overline: "Drop 001 — Primetime Launch",
-    item_name: "Secret Lumpia",
+    overline: "Opening Soon",
+    item_name: "",
     subtitle:
-      "A brand-new lumpia creation hits the truck window. Limited batch. When it's gone, it's gone forever.",
-    location_note: "TreasureFest ★ First 100 servings only",
+      "Kayo Mestiza is firing up its first pop-up. Join the list and you'll be the first to know the date, the spot, and the menu.",
+    location_note: "Fredericksburg, VA ★ Locations announced to the list first",
   },
   contact: {
     phone_display: PHONE_DISPLAY,
     phone_number: PHONE_NUMBER,
     email: EMAIL,
-    instagram: INSTAGRAM,
+    instagram: "",
+    facebook: "",
+    tiktok: "",
   },
 };
 

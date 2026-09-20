@@ -1,6 +1,6 @@
 import { Flame } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { FAVORITES, type MenuItem } from "@/data/menu";
+import { FAVORITES, fmtPrice, type MenuItem } from "@/data/menu";
 import { useContact } from "@/hooks/useSettings";
 
 const Heat = ({ level }: { level: number }) => (
@@ -35,7 +35,7 @@ const FavCard = ({ item, big, delay }: { item: MenuItem; big?: boolean; delay: n
         <div>
           <h3 className="font-heading text-lg font-bold uppercase tracking-tight sm:text-xl">{item.name}</h3>
           <div className="mt-1 flex items-center gap-3">
-            <span className="font-mono2 text-sm font-bold text-gold">${item.price}</span>
+            <span className="font-mono2 text-sm font-bold text-gold">{fmtPrice(item.price)}</span>
             <Heat level={item.heat} />
           </div>
         </div>

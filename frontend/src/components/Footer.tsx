@@ -32,11 +32,17 @@ export const Footer = () => {
               <span className="text-gold"><FilipinoSunIcon className="h-6 w-6" /></span>
               <span className="font-heading font-bold uppercase">Kayo Mestiza</span>
             </div>
-            <p className="mt-3 text-sm text-slate-400">Blasian fire &amp; street eats. Rolled, smashed, and charred in the Bay.</p>
+            <p className="mt-3 text-sm text-slate-400">Blasian fire &amp; street eats. Rolled, smashed, and charred in Fredericksburg, VA.</p>
             <div className="mt-4 flex gap-3">
-              <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="footer-social-instagram" className="text-slate-400 hover:text-gold"><SiInstagram className="h-5 w-5" /></a>
-              <a href="https://facebook.com/kayomestiza" target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="footer-social-facebook" className="text-slate-400 hover:text-gold"><SiFacebook className="h-5 w-5" /></a>
-              <a href="https://tiktok.com/@kayomestiza" target="_blank" rel="noreferrer" aria-label="TikTok" data-testid="footer-social-tiktok" className="text-slate-400 hover:text-gold"><SiTiktok className="h-5 w-5" /></a>
+              {contact.instagram && (
+                <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="footer-social-instagram" className="text-slate-400 hover:text-gold"><SiInstagram className="h-5 w-5" /></a>
+              )}
+              {contact.facebook && (
+                <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="footer-social-facebook" className="text-slate-400 hover:text-gold"><SiFacebook className="h-5 w-5" /></a>
+              )}
+              {contact.tiktok && (
+                <a href={contact.tiktok} target="_blank" rel="noreferrer" aria-label="TikTok" data-testid="footer-social-tiktok" className="text-slate-400 hover:text-gold"><SiTiktok className="h-5 w-5" /></a>
+              )}
             </div>
           </div>
           <div>

@@ -45,7 +45,9 @@ export const CateringSection = () => {
         <h2 className="display-graffiti mt-3 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-4xl lg:text-5xl">
           Catering &amp; Events
         </h2>
-        <p className="mt-4 max-w-xl text-base text-slate-400">Weddings, block parties, office drops — we roll up, fire up, and feed everybody.</p>
+        <p className="mt-4 max-w-xl text-base text-slate-400">
+          Weddings, block parties, office drops — tell us what you're planning and we'll send a quote built around your menu, headcount, and location.
+        </p>
       </Reveal>
       <div className="mt-10 grid gap-5 sm:grid-cols-3">
         {PACKAGES.map((p, i) => (
@@ -85,7 +87,7 @@ export const CateringSection = () => {
           </div>
           <div>
             <Label htmlFor="catering-phone" className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Phone</Label>
-            <Input id="catering-phone" data-testid="catering-phone-input" value={form.phone} onChange={set("phone")} className="mt-2 border-white/20 bg-coal text-white" placeholder="(415) 555-0100" />
+            <Input id="catering-phone" data-testid="catering-phone-input" value={form.phone} onChange={set("phone")} className="mt-2 border-white/20 bg-coal text-white" placeholder="(540) 555-0100" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -99,8 +101,11 @@ export const CateringSection = () => {
           </div>
           <div className="sm:col-span-2">
             <Label htmlFor="catering-message" className="font-mono2 text-xs uppercase tracking-wider text-slate-300">Tell us about the event *</Label>
-            <Textarea id="catering-message" data-testid="catering-message-input" required rows={4} value={form.message} onChange={set("message")} className="mt-2 border-white/20 bg-coal text-white" placeholder="Backyard birthday in Daly City, need the truck 5–9pm, two vegetarians…" />
+            <Textarea id="catering-message" data-testid="catering-message-input" required rows={4} value={form.message} onChange={set("message")} className="mt-2 border-white/20 bg-coal text-white" placeholder="Backyard birthday in Fredericksburg, need the truck 5–9pm, two vegetarians…" />
           </div>
+          <p className="font-mono2 text-[10px] uppercase tracking-wider text-slate-500 sm:col-span-2" data-testid="catering-quote-note">
+            Every event is quoted individually — nothing is confirmed until we agree on menu, timing, and location.
+          </p>
           <div className="sm:col-span-2">
             <Button type="submit" data-testid="catering-submit-btn" disabled={mutation.isPending} className="sticker h-auto rotate-[-1deg] bg-flame px-8 py-4 font-heading text-sm text-white hover:bg-scarlet">
               {mutation.isPending ? "Sending…" : "Send Catering Inquiry"}

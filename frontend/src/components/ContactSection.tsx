@@ -41,19 +41,25 @@ export const ContactSection = () => {
               <span className="sticker bg-deepblue p-2 text-white"><Mail className="h-4 w-4" /></span> {contact.email}
             </a>
             <p className="flex items-center gap-3 text-lg text-slate-200">
-              <span className="sticker bg-gold p-2 text-black"><MapPin className="h-4 w-4" /></span> San Francisco Bay Area
+              <span className="sticker bg-gold p-2 text-black"><MapPin className="h-4 w-4" /></span> Fredericksburg, VA
             </p>
           </div>
           <div className="mt-8 flex gap-3" data-testid="contact-socials">
-            <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="social-instagram" className="sticker rotate-[-2deg] bg-scarlet p-3 text-white transition-transform hover:rotate-0">
-              <SiInstagram className="h-5 w-5" />
-            </a>
-            <a href="https://facebook.com/kayomestiza" target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="social-facebook" className="sticker rotate-2 bg-deepblue p-3 text-white transition-transform hover:rotate-0">
-              <SiFacebook className="h-5 w-5" />
-            </a>
-            <a href="https://tiktok.com/@kayomestiza" target="_blank" rel="noreferrer" aria-label="TikTok" data-testid="social-tiktok" className="sticker rotate-[-1deg] bg-black p-3 text-white transition-transform hover:rotate-0">
-              <SiTiktok className="h-5 w-5" />
-            </a>
+            {contact.instagram && (
+              <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="social-instagram" className="sticker rotate-[-2deg] bg-scarlet p-3 text-white transition-transform hover:rotate-0">
+                <SiInstagram className="h-5 w-5" />
+              </a>
+            )}
+            {contact.facebook && (
+              <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" data-testid="social-facebook" className="sticker rotate-2 bg-deepblue p-3 text-white transition-transform hover:rotate-0">
+                <SiFacebook className="h-5 w-5" />
+              </a>
+            )}
+            {contact.tiktok && (
+              <a href={contact.tiktok} target="_blank" rel="noreferrer" aria-label="TikTok" data-testid="social-tiktok" className="sticker rotate-[-1deg] bg-black p-3 text-white transition-transform hover:rotate-0">
+                <SiTiktok className="h-5 w-5" />
+              </a>
+            )}
           </div>
         </Reveal>
         <Reveal delay={0.1}>
