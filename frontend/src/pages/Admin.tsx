@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
+import { AiStudio } from "@/components/AiStudio";
 import type { SiteSettings } from "@/hooks/useSettings";
 
 interface AdminUser {
@@ -301,6 +302,8 @@ export default function Admin() {
             </Button>
           </section>
         )}
+
+        <AiStudio />
 
         <div className="mt-8 space-y-4" data-testid="admin-schedule-editor">
           {entries.map((entry, i) => (
