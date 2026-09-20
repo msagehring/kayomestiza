@@ -21,6 +21,14 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Truck owner/admin (edits weekly schedule, reads inquiry inbox at /admin)
 
 ## Implemented (2026-09)
+- **Pop-Up Alerts waitlist (2026-09-20)**
+  - `POST /api/waitlist` (public): email required, optional mobile + SMS opt-in, `source` tag. Phone normalized to +1XXXXXXXXXX. Re-submitting the same email merges instead of duplicating.
+  - `GET /api/waitlist` (admin) + `GET /api/waitlist/export` (admin CSV download).
+  - UI: `WaitlistSection.tsx` ("Pop-Up Alerts", anchor `#newsletter`, fed by the drop + pop-ups CTAs); footer signup now posts to the waitlist with `source: footer`.
+  - Admin: Pop-Up Alert List table + Download CSV button.
+  - Drop copy set to the owner's tentative target: "Opening Winter 2026 / targeting December 1, 2026 (tentative)" — still no hard timer until a confirmed date is entered in /admin.
+  - PENDING FROM OWNER: confirmed pop-up date + venue/address, real phone/email/socials, and whether alerts should auto-send (Twilio SMS vs Resend email vs manual CSV).
+
 - **Pre-launch cleanup + Fredericksburg pivot (2026-09-20)**
   - Truck is now based in **Fredericksburg, VA**. All San Francisco / "in the Bay" copy, the SF map embed, and the Bay-Area venue seed are gone. Hero image regenerated without the old "MANILA TO SF" graffiti.
   - **Pricing (owner-supplied)**: combos $13 / $14 / $12 / $28 / $10; a la carte repriced so combos read as a real discount — Griddle $9–11, Traditional Lumpia (2 pc) $4.50, Baboy Kabob $4/skewer, Adobo Taco $4 ea, specialty rolls $4.50, Turon $6, cassava/mango $5.50, carrot cheesecake $6. All prices render via `fmtPrice()` → `$X.XX`.

@@ -12,6 +12,7 @@ import { CateringSection } from "@/components/CateringSection";
 import { AboutManifesto } from "@/components/AboutManifesto";
 import { GallerySection } from "@/components/GallerySection";
 import { ContactSection } from "@/components/ContactSection";
+import { WaitlistSection } from "@/components/WaitlistSection";
 import { Footer } from "@/components/Footer";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
 import { MenuConcierge } from "@/components/MenuConcierge";
@@ -37,6 +38,7 @@ export default function Home() {
         <AboutManifesto />
         <GallerySection />
         <ContactSection />
+        <WaitlistSection />
       </main>
       <Footer />
       <StickyMobileBar />

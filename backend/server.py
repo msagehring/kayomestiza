@@ -1,6 +1,9 @@
 import asyncio
+import csv
+import io
 import os
 import logging
+import re
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone, timedelta
@@ -131,13 +134,29 @@ class Inquiry(InquiryCreate):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+class WaitlistCreate(BaseModel):
+    email: EmailStr
+    phone: str = ""
+    sms_optin: bool = False
+    source: str = "site"
+
+
+class WaitlistEntry(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: EmailStr
+    phone: str = ""
+    sms_optin: bool = False
+    source: str = "site"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
 class DropSettings(BaseModel):
     enabled: bool = True
     drop_at: Optional[str] = None  # ISO 8601 datetime; null => "coming soon" waitlist mode (no timer)
-    overline: str = "Opening Soon"
+    overline: str = "Opening Winter 2026"
     item_name: str = ""
-    subtitle: str = "Kayo Mestiza is firing up its first pop-up. Join the list and you'll be the first to know the date, the spot, and the menu."
-    location_note: str = "Fredericksburg, VA \u2605 Locations announced to the list first"
+    subtitle: str = "Kayo Mestiza is firing up its first pop-up — we're targeting December 1, 2026. The date is still tentative, so join the list and you'll be the first to get the confirmed day, the spot, and the menu."
+    location_note: str = "Fredericksburg, VA \u2605 Date tentative \u2605 Announced to the list first"
 
 
 class ContactSettings(BaseModel):
@@ -236,6 +255,55 @@ async def list_inquiries(admin: AdminUser = Depends(get_current_admin)):
             d["created_at"] = d["created_at"].replace(tzinfo=timezone.utc)
         out.append(Inquiry(**d))
     return out
+
+
+@api_router.post("/waitlist", response_model=WaitlistEntry)
+async def join_waitlist(body: WaitlistCreate):
+    email = body.email.lower().strip()
+    digits = re.sub(r"\D", "", body.phone)
+    phone = f"+1{digits}" if len(digits) == 10 else (f"+{digits}" if digits else "")
+    existing = await db.waitlist.find_one({"email": email})
+    if existing:
+        updates = {"source": body.source}
+        if phone:
+            updates["phone"] = phone
+            updates["sms_optin"] = body.sms_optin
+        await db.waitlist.update_one({"email": email}, {"$set": updates})
+        merged = {**existing, **updates}
+        merged.pop("_id", None)
+        if isinstance(merged.get("created_at"), datetime) and merged["created_at"].tzinfo is None:
+            merged["created_at"] = merged["created_at"].replace(tzinfo=timezone.utc)
+        return WaitlistEntry(**merged)
+    entry = WaitlistEntry(email=email, phone=phone, sms_optin=body.sms_optin and bool(phone), source=body.source)
+    await db.waitlist.insert_one(entry.model_dump())
+    return entry
+
+
+@api_router.get("/waitlist", response_model=List[WaitlistEntry])
+async def list_waitlist(admin: AdminUser = Depends(get_current_admin)):
+    docs = await db.waitlist.find().sort("created_at", -1).to_list(2000)
+    out = []
+    for d in docs:
+        d.pop("_id", None)
+        if isinstance(d.get("created_at"), datetime) and d["created_at"].tzinfo is None:
+            d["created_at"] = d["created_at"].replace(tzinfo=timezone.utc)
+        out.append(WaitlistEntry(**d))
+    return out
+
+
+@api_router.get("/waitlist/export")
+async def export_waitlist(admin: AdminUser = Depends(get_current_admin)):
+    docs = await db.waitlist.find().sort("created_at", -1).to_list(5000)
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(["email", "phone", "sms_optin", "source", "created_at"])
+    for d in docs:
+        writer.writerow([d.get("email", ""), d.get("phone", ""), d.get("sms_optin", False), d.get("source", ""), d.get("created_at", "")])
+    return Response(
+        content=buf.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="kayo-mestiza-waitlist.csv"'},
+    )
 
 
 @api_router.get("/settings", response_model=SiteSettings)

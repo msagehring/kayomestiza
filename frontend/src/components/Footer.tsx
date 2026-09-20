@@ -12,9 +12,9 @@ export const Footer = () => {
   const contact = useContact();
   const [email, setEmail] = useState("");
   const mutation = useMutation({
-    mutationFn: () => apiPost("/inquiries", { type: "newsletter", name: "Newsletter", email, message: "Newsletter signup for secret menu drops" }),
+    mutationFn: () => apiPost("/waitlist", { email, source: "footer" }),
     onSuccess: () => {
-      toast.success("You're on the drop list. Watch your inbox.");
+      toast.success("You're on the list. We'll hit you first when the window opens.");
       setEmail("");
     },
     onError: () => toast.error("Could not add you — try again."),
@@ -63,11 +63,10 @@ export const Footer = () => {
             </p>
           </div>
           <div>
-            <h3 className="font-mono2 text-xs uppercase tracking-[0.25em] text-gold">Secret Menu Drops</h3>
-            <p className="mt-4 text-sm text-slate-400">Weekend specials and sticker drops, straight to your inbox.</p>
+            <h3 className="font-mono2 text-xs uppercase tracking-[0.25em] text-gold">Pop-Up Alerts</h3>
+            <p className="mt-4 text-sm text-slate-400">Locations, weekend specials and sticker drops, straight to your inbox.</p>
             <form
-              id="newsletter"
-              className="mt-4 flex gap-2 scroll-mt-24"
+              className="mt-4 flex gap-2"
               data-testid="newsletter-form"
               onSubmit={(e) => {
                 e.preventDefault();

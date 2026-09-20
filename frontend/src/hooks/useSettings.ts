@@ -35,11 +35,11 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   drop: {
     enabled: true,
     drop_at: null,
-    overline: "Opening Soon",
+    overline: "Opening Winter 2026",
     item_name: "",
     subtitle:
-      "Kayo Mestiza is firing up its first pop-up. Join the list and you'll be the first to know the date, the spot, and the menu.",
-    location_note: "Fredericksburg, VA ★ Locations announced to the list first",
+      "Kayo Mestiza is firing up its first pop-up — we're targeting December 1, 2026. The date is still tentative, so join the list and you'll be the first to get the confirmed day, the spot, and the menu.",
+    location_note: "Fredericksburg, VA ★ Date tentative ★ Announced to the list first",
   },
   contact: {
     phone_display: PHONE_DISPLAY,
