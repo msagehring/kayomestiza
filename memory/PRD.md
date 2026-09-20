@@ -21,7 +21,7 @@ Bold, mobile-first website for KAYO MESTIZA — "Blasian Fire & Street Eats." 90
 - Truck owner/admin (edits weekly schedule, reads inquiry inbox at /admin)
 
 ## Implemented (2026-07)
-- Kinetic masked-reveal hero with parallax sun watermark + floating dish card
+- Kinetic masked-reveal hero with the real graffiti wordmark (from the concept logos, isolated to a transparent PNG at /wordmark.png) + parallax sun watermark + floating dish card
 - Sticker marquee ribbon, bento Fan Favorites grid (5 items w/ heat levels)
 - Full tabbed menu (13 items, 4 categories, prices, heat, dietary tags)
 - Truck schedule cards + "Today" highlight + Google Maps embed + directions links

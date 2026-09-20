@@ -41,20 +41,16 @@ export const Hero = () => {
               Filipino-American Street Eats &#9733; Est. on the Block
             </motion.p>
           </div>
-          <h1 className="mt-4 font-heading font-bold uppercase leading-[0.9] tracking-tighter">
+          <h1 className="mt-6">
+            <span className="sr-only">Kayo Mestiza</span>
             <span className="block overflow-hidden">
-              <motion.span variants={line} className="display-graffiti block text-[18vw] text-white sm:text-8xl lg:text-9xl" data-testid="hero-title-line-1">
-                Kayo
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden">
-              <motion.span
+              <motion.img
                 variants={line}
-                className="display-graffiti-gold block bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-[18vw] text-transparent sm:text-8xl lg:text-9xl"
-                data-testid="hero-title-line-2"
-              >
-                Mestiza
-              </motion.span>
+                src="/wordmark.png"
+                alt=""
+                data-testid="hero-wordmark"
+                className="w-full max-w-[340px] -rotate-2 drop-shadow-[10px_12px_0_rgba(0,0,0,0.6)] sm:max-w-[520px] lg:max-w-[640px]"
+              />
             </span>
           </h1>
           <div className="mt-6 overflow-hidden">
