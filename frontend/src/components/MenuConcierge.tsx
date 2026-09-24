@@ -23,9 +23,16 @@ const STARTERS = [
 ];
 
 interface Msg {
+  id: string;
   role: "user" | "assistant";
   text: string;
 }
+
+const mkMsg = (role: Msg["role"], text: string): Msg => ({
+  id: globalThis.crypto?.randomUUID?.() ?? `m-${Date.now()}-${Math.random()}`,
+  role,
+  text,
+});
 
 export const MenuConcierge = () => {
   const contact = useContact();
@@ -33,10 +40,10 @@ export const MenuConcierge = () => {
   const [busy, setBusy] = useState(false);
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([
-    {
-      role: "assistant",
-      text: "Yo — I'm the Kayo concierge. Tell me what you're craving, how spicy you ride, or who you're feeding, and I'll build your order.",
-    },
+    mkMsg(
+      "assistant",
+      "Yo — I'm the Kayo concierge. Tell me what you're craving, how spicy you ride, or who you're feeding, and I'll build your order.",
+    ),
   ]);
   const sessionId = useRef(
     (globalThis.crypto?.randomUUID?.() ?? `s-${Date.now()}-${Math.random()}`).slice(0, 40),
@@ -51,7 +58,7 @@ export const MenuConcierge = () => {
     const question = text.trim();
     if (!question || busy) return;
     setInput("");
-    setMsgs((m) => [...m, { role: "user", text: question }]);
+    setMsgs((m) => [...m, mkMsg("user", question)]);
     setBusy(true);
     try {
       const res = await apiPost<{ answer: string }>("/ai/concierge", {
@@ -59,11 +66,11 @@ export const MenuConcierge = () => {
         message: question,
         menu: MENU_PAYLOAD,
       });
-      setMsgs((m) => [...m, { role: "assistant", text: res.answer }]);
+      setMsgs((m) => [...m, mkMsg("assistant", res.answer)]);
     } catch {
       setMsgs((m) => [
         ...m,
-        { role: "assistant", text: `My brain's offline for a sec. Text the truck at ${contact.phone_display} and we got you.` },
+        mkMsg("assistant", `My brain's offline for a sec. Text the truck at ${contact.phone_display} and we got you.`),
       ]);
     } finally {
       setBusy(false);
@@ -109,7 +116,7 @@ export const MenuConcierge = () => {
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4" data-testid="concierge-messages">
               {msgs.map((m, i) => (
                 <div
-                  key={i}
+                  key={m.id}
                   data-testid={`concierge-msg-${m.role}-${i}`}
                   className={
                     m.role === "user"

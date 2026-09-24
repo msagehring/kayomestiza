@@ -80,7 +80,7 @@ export const AiStudio = () => {
           </div>
           <div className="mt-4 space-y-2" data-testid="ai-copy-results">
             {variants.map((v, i) => (
-              <div key={i} className="group flex items-start gap-2 border border-white/10 bg-coal p-3 text-sm text-slate-200" data-testid={`ai-copy-variant-${i}`}>
+              <div key={v} className="group flex items-start gap-2 border border-white/10 bg-coal p-3 text-sm text-slate-200" data-testid={`ai-copy-variant-${i}`}>
                 <span className="flex-1">{v}</span>
                 <button
                   data-testid={`ai-copy-copy-${i}`}

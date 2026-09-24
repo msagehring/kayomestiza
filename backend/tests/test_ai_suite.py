@@ -3,10 +3,13 @@ import os
 import uuid
 import pytest
 import requests
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://blasian-fire.preview.emergentagent.com").rstrip("/")
-ADMIN_EMAIL = "admin@kayomestiza.com"
-ADMIN_PASSWORD = "KayoFire2026!"
+ADMIN_EMAIL = os.environ["ADMIN_EMAIL"]
+ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 
 MENU_SAMPLE = [
     {"name": "The Kayo Box", "description": "Signature combo", "price": 18, "category": "Combos & Flights", "tags": ["Signature"], "heat": 2},

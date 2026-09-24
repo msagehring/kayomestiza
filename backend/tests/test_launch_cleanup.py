@@ -2,12 +2,15 @@
 import os
 import httpx
 import pytest
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 BASE = os.environ.get("REACT_APP_BACKEND_URL", "https://blasian-fire.preview.emergentagent.com").rstrip("/")
 API = f"{BASE}/api"
 
-ADMIN_EMAIL = "admin@kayomestiza.com"
-ADMIN_PASSWORD = "KayoFire2026!"
+ADMIN_EMAIL = os.environ["ADMIN_EMAIL"]
+ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
 
 
 @pytest.fixture(scope="module")
@@ -26,7 +29,7 @@ class TestPublicDefaults:
         assert r.status_code == 200
         data = r.json()
         assert data["drop"]["drop_at"] is None
-        assert data["drop"]["overline"] == "Opening Soon"
+        assert data["drop"]["overline"] == "Opening Winter 2026"
         assert data["contact"]["instagram"] == ""
         assert data["contact"]["facebook"] == ""
         assert data["contact"]["tiktok"] == ""
