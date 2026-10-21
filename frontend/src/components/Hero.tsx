@@ -77,7 +77,7 @@ export const Hero = () => {
             <UtensilsCrossed className="mr-2 inline h-4 w-4" /> View Menu
           </a>
           <a href="#schedule" data-testid="hero-find-truck-btn" className="sticker bg-deepblue px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:-rotate-1">
-            <MapPin className="mr-2 inline h-4 w-4" /> Find the Truck
+            <MapPin className="mr-2 inline h-4 w-4" /> Delivery Area
           </a>
           <a href={contact.tel} data-testid="hero-order-now-btn" className="sticker bg-flame px-7 py-4 text-sm text-white transition-transform hover:-translate-y-1 hover:rotate-1">
             <Flame className="mr-2 inline h-4 w-4" /> Order Now

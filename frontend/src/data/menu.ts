@@ -1,22 +1,22 @@
 export const IMG = {
-  hero: "/images/d7409752881773c3.jpeg",
-  lumpia: "/images/c3e6613c998446d5.jpeg",
-  burger: "/images/0d0f5f3debae523e.jpeg",
-  melt: "/images/8883f3f3ecad494b.jpeg",
-  turon: "/images/603dd3779e11b6fa.jpeg",
-  cassava: "/images/989e175bdcaf3290.jpeg",
-  skewers: "/images/ed911ae231ac25c3.jpeg",
-  quesadilla: "/images/578b5c29c580053a.jpeg",
-  tacos: "/images/bdd13aa6403ef8e3.jpeg",
-  crowd: "/images/b93e7f45b39fa5d3.jpeg",
-  stickers: "/images/127debf81c996bac.jpeg",
-  griddle: "/images/b3c4f7afa143031c.jpeg",
+  hero: "/images/d7409752881773c3.jpg",
+  lumpia: "/images/c3e6613c998446d5.jpg",
+  burger: "/images/0d0f5f3debae523e.jpg",
+  melt: "/images/8883f3f3ecad494b.jpg",
+  turon: "/images/603dd3779e11b6fa.jpg",
+  cassava: "/images/989e175bdcaf3290.jpg",
+  skewers: "/images/ed911ae231ac25c3.jpg",
+  quesadilla: "/images/578b5c29c580053a.jpg",
+  tacos: "/images/bdd13aa6403ef8e3.jpg",
+  crowd: "/images/b93e7f45b39fa5d3.jpg",
+  stickers: "/images/127debf81c996bac.jpg",
+  griddle: "/images/b3c4f7afa143031c.jpg",
 };
 
-export const PHONE_DISPLAY = "826-272-5555";
-export const PHONE_NUMBER = "+18262725555";
-export const PHONE_TEL = "tel:+18262725555";
-export const PHONE_SMS = "sms:+18262725555";
+export const PHONE_DISPLAY = "826-272-8944";
+export const PHONE_NUMBER = "+18262728944";
+export const PHONE_TEL = "tel:+18262728944";
+export const PHONE_SMS = "sms:+18262728944";
 export const EMAIL = "eats@kayomestiza.com";
 export const INSTAGRAM = "https://instagram.com/kayomestiza";
 

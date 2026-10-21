@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 import { Bell, MessageSquare } from "lucide-react";
-import { apiPost } from "@/lib/api";
+import { sendForm } from "@/lib/forms";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -13,7 +13,7 @@ export const WaitlistSection = () => {
   const [sms, setSms] = useState(false);
 
   const join = useMutation({
-    mutationFn: () => apiPost("/waitlist", { email, phone, sms_optin: sms, source: "waitlist-section" }),
+    mutationFn: () => sendForm("Drop alerts sign-up", { email, phone: phone || "not given", sms_optin: sms ? "yes" : "no", source: "waitlist-section" }),
     onSuccess: () => {
       toast.success("You're on the list. We'll hit you first when the window opens.");
       setEmail("");
@@ -43,7 +43,7 @@ export const WaitlistSection = () => {
           </p>
           <ul className="mt-6 space-y-2 font-mono2 text-[11px] uppercase tracking-wider text-slate-500">
             <li>★ First look at new lumpia drops</li>
-            <li>★ Fredericksburg locations before they're public</li>
+            <li>★ Each week's menu before it's public</li>
             <li>★ No spam. Leave any time.</li>
           </ul>
         </motion.div>

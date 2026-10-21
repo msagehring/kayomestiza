@@ -15,7 +15,6 @@ import { ContactSection } from "@/components/ContactSection";
 import { WaitlistSection } from "@/components/WaitlistSection";
 import { Footer } from "@/components/Footer";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
-import { MenuConcierge } from "@/components/MenuConcierge";
 
 export default function Home() {
   useEffect(() => {
@@ -42,7 +41,6 @@ export default function Home() {
       </main>
       <Footer />
       <StickyMobileBar />
-      <MenuConcierge />
     </div>
   );
 }

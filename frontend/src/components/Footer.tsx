@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { SiInstagram, SiFacebook, SiTiktok } from "@icons-pack/react-simple-icons";
-import { apiPost } from "@/lib/api";
+import { sendForm } from "@/lib/forms";
 import { Input } from "@/components/ui/input";
 import { FilipinoSunIcon } from "@/components/FilipinoSunIcon";
 import { NAV_LINKS } from "@/components/Header";
@@ -12,7 +12,7 @@ export const Footer = () => {
   const contact = useContact();
   const [email, setEmail] = useState("");
   const mutation = useMutation({
-    mutationFn: () => apiPost("/waitlist", { email, source: "footer" }),
+    mutationFn: () => sendForm("Drop alerts sign-up", { email, source: "footer" }),
     onSuccess: () => {
       toast.success("You're on the list. We'll hit you first when the window opens.");
       setEmail("");
@@ -32,7 +32,7 @@ export const Footer = () => {
               <span className="text-gold"><FilipinoSunIcon className="h-6 w-6" /></span>
               <span className="font-heading font-bold uppercase">Kayo Mestiza</span>
             </div>
-            <p className="mt-3 text-sm text-slate-400">Blasian fire &amp; street eats. Rolled, smashed, and charred in Fredericksburg, VA.</p>
+            <p className="mt-3 text-sm text-slate-400">Blasian fire &amp; street eats. Rolled, smashed, and charred in Stafford, VA.</p>
             <div className="mt-4 flex gap-3">
               {contact.instagram && (
                 <a href={contact.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-testid="footer-social-instagram" className="text-slate-400 hover:text-gold"><SiInstagram className="h-5 w-5" /></a>

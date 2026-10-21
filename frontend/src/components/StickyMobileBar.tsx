@@ -10,7 +10,7 @@ export const StickyMobileBar = () => {
         <Flame className="h-4 w-4" /> Order Now
       </a>
       <a href="#schedule" data-testid="sticky-find-truck-btn" className="sticker flex items-center justify-center gap-2 bg-deepblue px-4 py-3 text-xs text-white">
-        <MapPin className="h-4 w-4" /> Find the Truck
+        <MapPin className="h-4 w-4" /> Delivery Area
       </a>
     </div>
   </div>

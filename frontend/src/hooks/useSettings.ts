@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiGet } from "@/lib/api";
 import {
   PHONE_DISPLAY,
   PHONE_NUMBER,
   EMAIL,
+  INSTAGRAM,
 } from "@/data/menu";
 
 export interface DropSettings {
@@ -29,35 +28,29 @@ export interface SiteSettings {
   contact: ContactSettings;
 }
 
-// Defaults mirror the seeded backend document so the UI renders instantly on first
-// paint and stays functional even if the settings request is still in flight or fails.
+// Site settings live here now (static hosting, no admin backend). Edit and redeploy to change them.
 export const DEFAULT_SETTINGS: SiteSettings = {
   drop: {
     enabled: true,
-    drop_at: null,
-    overline: "Opening Winter 2026",
+    drop_at: "2026-11-02T00:00:00-05:00",
+    overline: "Soft Launch ★ Nov 2 – Dec 31, 2026",
     item_name: "",
     subtitle:
-      "Kayo Mestiza is firing up its first pop-up — we're targeting December 1, 2026. The date is still tentative, so join the list and you'll be the first to get the confirmed day, the spot, and the menu.",
-    location_note: "Fredericksburg, VA ★ Date tentative ★ Announced to the list first",
+      "Our soft launch runs November 2 through December 31. Delivery only, around Stafford. Join the list and you'll get each week's menu first.",
+    location_note: "Stafford, VA ★ Delivery only ★ Menu announced to the list first",
   },
   contact: {
     phone_display: PHONE_DISPLAY,
     phone_number: PHONE_NUMBER,
     email: EMAIL,
-    instagram: "",
+    instagram: INSTAGRAM,
     facebook: "",
     tiktok: "",
   },
 };
 
 export function useSettings() {
-  const query = useQuery({
-    queryKey: ["settings"],
-    queryFn: () => apiGet<SiteSettings>("/settings"),
-    staleTime: 60_000,
-  });
-  return query.data ?? DEFAULT_SETTINGS;
+  return DEFAULT_SETTINGS;
 }
 
 // Derived contact link helpers so components never re-build tel:/sms:/mailto: by hand.

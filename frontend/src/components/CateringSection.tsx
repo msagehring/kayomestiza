@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { PartyPopper } from "lucide-react";
-import { apiPost, ApiError } from "@/lib/api";
+import { ApiError } from "@/lib/api";
+import { sendForm } from "@/lib/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,14 +17,13 @@ export const CateringSection = () => {
 
   const mutation = useMutation({
     mutationFn: () =>
-      apiPost("/inquiries", {
-        type: "catering",
+      sendForm("Catering inquiry", {
         name: form.name,
         email: form.email,
         phone: form.phone,
         message: form.message,
-        event_date: form.event_date || null,
-        guests: form.guests ? Number(form.guests) : null,
+        event_date: form.event_date || "not given",
+        guests: form.guests || "not given",
         package: PACKAGES.find((p) => p.id === pkg)?.name ?? pkg,
       }),
     onSuccess: () => {

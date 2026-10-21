@@ -9,12 +9,12 @@ export const OrderSection = () => {
     <div className="pointer-events-none absolute inset-0 opacity-10 [background-image:repeating-linear-gradient(-45deg,#000_0_2px,transparent_2px_18px)]" />
     <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
       <Reveal>
-        <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">Skip the Line</p>
+        <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">Straight to Your Door</p>
         <h2 className="display-graffiti-gold mt-4 font-heading text-4xl font-bold uppercase tracking-tighter text-white sm:text-5xl lg:text-6xl">
           Hungry Now?
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-base text-red-100">
-          Call or text your order ahead, roll up to the truck window, and we hand you the fire. Pickup only at the truck — no delivery apps, no middlemen.
+          Call or text your order and we bring the fire to you. The soft launch is delivery only, around Stafford, VA — send your address and we'll confirm we can reach you. No delivery apps, no middlemen.
         </p>
         <a
           href={contact.tel}
@@ -32,7 +32,7 @@ export const OrderSection = () => {
           </a>
         </div>
         <p className="mt-6 inline-flex items-center gap-2 font-mono2 text-xs uppercase tracking-[0.2em] text-red-200">
-          <Flame className="h-4 w-4 text-gold" /> Have your location + menu items ready
+          <Flame className="h-4 w-4 text-gold" /> Have your address + menu items ready
         </p>
       </Reveal>
     </div>

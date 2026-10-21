@@ -3,7 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { SiInstagram, SiFacebook, SiTiktok } from "@icons-pack/react-simple-icons";
-import { apiPost, ApiError } from "@/lib/api";
+import { ApiError } from "@/lib/api";
+import { sendForm } from "@/lib/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,7 +16,7 @@ export const ContactSection = () => {
   const contact = useContact();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const mutation = useMutation({
-    mutationFn: () => apiPost("/inquiries", { type: "contact", ...form }),
+    mutationFn: () => sendForm("Website message", { ...form }),
     onSuccess: () => {
       toast.success("Message sent! We read everything between services.");
       setForm({ name: "", email: "", message: "" });
@@ -41,7 +42,7 @@ export const ContactSection = () => {
               <span className="sticker bg-deepblue p-2 text-white"><Mail className="h-4 w-4" /></span> {contact.email}
             </a>
             <p className="flex items-center gap-3 text-lg text-slate-200">
-              <span className="sticker bg-gold p-2 text-black"><MapPin className="h-4 w-4" /></span> Fredericksburg, VA
+              <span className="sticker bg-gold p-2 text-black"><MapPin className="h-4 w-4" /></span> Stafford, VA
             </p>
           </div>
           <div className="mt-8 flex gap-3" data-testid="contact-socials">

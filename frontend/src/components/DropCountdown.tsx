@@ -17,7 +17,7 @@ export const DropCountdown = () => {
   const contact = useContact();
   const [now, setNow] = useState(() => Date.now());
 
-  // No date set in /admin => waitlist mode: no timer, no fake "drop" promise.
+  // No date set => waitlist mode: no timer, no fake "drop" promise.
   const dropTime = useMemo(() => {
     if (!drop.drop_at) return null;
     const t = new Date(drop.drop_at).getTime();
@@ -51,15 +51,15 @@ export const DropCountdown = () => {
           <h2 className="display-graffiti mt-4 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-5xl lg:text-6xl">
             {remaining === null ? (
               <>
-                First Pop-Up
+                Soft Launch
                 <br />
                 <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Coming Soon.</span>
               </>
             ) : (
               <>
-                Never Seen.
+                Soft Launch.
                 <br />
-                <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Never Tasted.</span>
+                <span className="bg-[linear-gradient(135deg,#FF4500_0%,#FFD700_100%)] bg-clip-text text-transparent">Delivery Starts Nov 2.</span>
               </>
             )}
           </h2>
@@ -78,7 +78,7 @@ export const DropCountdown = () => {
           {remaining !== null &&
             (live ? (
               <p className="mt-10 font-heading text-2xl font-bold uppercase text-gold sm:text-4xl" data-testid="drop-live-banner">
-                <Flame className="mr-2 inline h-7 w-7 text-flame" /> The drop is LIVE — find the truck
+                <Flame className="mr-2 inline h-7 w-7 text-flame" /> We're live — call or text your order
               </p>
             ) : (
               <div className="mt-10 flex flex-wrap items-stretch justify-center gap-3 sm:gap-4" data-testid="drop-timer">
@@ -94,7 +94,7 @@ export const DropCountdown = () => {
               <Bell className="mr-2 inline h-4 w-4" /> {remaining === null ? "Join the List" : "Get Drop Alerts"}
             </a>
             <a href={contact.sms} data-testid="drop-text-btn" className="sticker rotate-1 bg-transparent px-7 py-4 text-sm text-gold !border-gold transition-transform hover:-translate-y-1 hover:-rotate-1" style={{ borderColor: "#FFD700" }}>
-              {remaining === null ? "Text the Truck" : 'Text "DROP" to the Truck'}
+              Text Your Order
             </a>
           </div>
           <p className="mt-4 font-mono2 text-[10px] uppercase tracking-[0.25em] text-slate-500" data-testid="drop-location-note">

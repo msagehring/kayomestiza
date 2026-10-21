@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { CalendarDays, MapPin, Navigation } from "lucide-react";
-import { apiGet } from "@/lib/api";
+import { SCHEDULE } from "@/data/schedule";
 import { Reveal } from "@/components/Reveal";
 
 export interface ScheduleEntry {
@@ -12,23 +11,16 @@ export interface ScheduleEntry {
   note: string;
   closed: boolean;
 }
-interface ScheduleResponse {
-  entries: ScheduleEntry[];
-}
 
 const TODAY = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][new Date().getDay()];
 
 export const ScheduleSection = () => {
-  const { data, isError } = useQuery({
-    queryKey: ["schedule"],
-    queryFn: () => apiGet<ScheduleResponse>("/schedule"),
-  });
-  const entries = isError || !data ? [] : data.entries;
+  const entries = SCHEDULE;
 
   return (
     <section id="schedule" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28" data-testid="schedule-section">
       <Reveal>
-        <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">Catch the Truck</p>
+        <p className="font-mono2 text-xs uppercase tracking-[0.3em] text-gold">Where to Find Us</p>
         <h2 className="display-graffiti mt-3 font-heading text-3xl font-bold uppercase tracking-tighter text-white sm:text-4xl lg:text-5xl">
           Pop-Ups &amp; Events
         </h2>
@@ -37,10 +29,10 @@ export const ScheduleSection = () => {
         <div className="space-y-4" data-testid="schedule-list">
           {entries.length === 0 && (
             <div className="border-2 border-dashed border-white/15 p-6" data-testid="schedule-empty-state">
-              <p className="font-heading text-base font-bold uppercase text-gold">No pop-ups announced yet</p>
+              <p className="font-heading text-base font-bold uppercase text-gold">Delivery only for the soft launch</p>
               <p className="mt-2 text-sm text-slate-400">
-                We're locking in our first Fredericksburg spots now. Join the list and you'll get the date, time and
-                location before anyone else.
+                November 2 through December 31 we deliver around Stafford. Pop-ups will be posted here, and the list
+                hears about them first.
               </p>
               <a
                 href="#newsletter"
@@ -97,11 +89,11 @@ export const ScheduleSection = () => {
           <div className="clip-frame sticky top-24 border-2 border-gold/50 bg-panel p-2" data-testid="schedule-map">
             <div className="flex items-center gap-2 px-2 py-3">
               <MapPin className="h-4 w-4 text-flame" />
-              <span className="font-heading text-sm font-bold uppercase">Home turf: Fredericksburg, VA</span>
+              <span className="font-heading text-sm font-bold uppercase">Home turf: Stafford, VA</span>
             </div>
             <iframe
-              title="Kayo Mestiza truck map"
-              src="https://www.google.com/maps?q=Fredericksburg%2C%20VA&output=embed"
+              title="Kayo Mestiza home turf: Stafford, VA"
+              src="https://www.google.com/maps?q=Stafford%2C%20VA&output=embed"
               className="clip-frame aspect-[4/3] w-full border-0"
               loading="lazy"
             />
