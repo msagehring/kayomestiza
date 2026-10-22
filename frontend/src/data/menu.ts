@@ -1,16 +1,16 @@
 export const IMG = {
-  hero: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/d7409752881773c3cd9a57e868965e653e3fec58d9e42ab6c135608bac948a01.jpeg",
-  lumpia: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/c3e6613c998446d5e9ca77d539608c6a255e0db82902f03a9fd1903e253eb31d.jpeg",
-  burger: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/0d0f5f3debae523ebea9be1e896e4ba2e4a25e88dda6884e106ba8f37d92ebd5.jpeg",
-  melt: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/8883f3f3ecad494bd512b4a7dae256294c320d3b234942e45258738ff1813ae3.jpeg",
-  turon: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/603dd3779e11b6fa3de6b74b43b73c6e645b162f4b9e8b160e5c03a6f0720e10.jpeg",
-  cassava: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/989e175bdcaf3290fd9a8d8255d90e8ea57e7afd8275c5ca628154afcf0e5b8b.jpeg",
-  skewers: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/ed911ae231ac25c3e272386157065031a027174984986a2e836e81dd15479940.jpeg",
-  quesadilla: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/578b5c29c580053a9383b7ffa95e6c537aeb7bb558586bd830015e2add96fff8.jpeg",
-  tacos: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/bdd13aa6403ef8e39330b34344b16d859156c84c6dd822a5a0bfc0e3158e96a6.jpeg",
-  crowd: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/b93e7f45b39fa5d364865d17687be763dd0f3eb10714d26df358747f360d1873.jpeg",
-  stickers: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/127debf81c996bac318d4296f26d7d939793712c0887c3de8e872ff45fa2871c.jpeg",
-  griddle: "https://static.prod-images.emergentagent.com/jobs/8717fc1b-661d-4cbf-b079-5c3a13742e29/images/b3c4f7afa143031c5789a6d1c0dc88f348e72edb81f6bdbb8ac349d309b52887.jpeg",
+  hero: "/images/hero.jpeg",
+  lumpia: "/images/lumpia.jpeg",
+  burger: "/images/burger.jpeg",
+  melt: "/images/melt.jpeg",
+  turon: "/images/turon.jpeg",
+  cassava: "/images/cassava.jpeg",
+  skewers: "/images/skewers.jpeg",
+  quesadilla: "/images/quesadilla.jpeg",
+  tacos: "/images/tacos.jpeg",
+  crowd: "/images/crowd.jpeg",
+  stickers: "/images/stickers.jpeg",
+  griddle: "/images/griddle.jpeg",
 };
 
 export const PHONE_DISPLAY = "826-272-5555";

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
-BASE = os.environ.get("REACT_APP_BACKEND_URL", "https://blasian-fire.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("REACT_APP_BACKEND_URL", "http://localhost:8001").rstrip("/")
 API = f"{BASE}/api"
 
 ADMIN_EMAIL = os.environ["ADMIN_EMAIL"]
